@@ -1,0 +1,43 @@
+
+
+    $('#newData').on('click', '.paginate_reload_prevent a', function() {
+        var page = $(this).data('id');
+        console.log(page)
+        if (page) {
+            $.get("{{URL::to('/admin/view/product?page=')}}" + page, function(data) {
+                $('#newData').empty().append(data);
+            });
+        }
+    });
+
+    $('#newData').on('click', '.delete', function(e) {
+        e.preventDefault();
+        var link = $(this).attr("href");
+        console.log(link)
+        bootbox.confirm("Are you sure to delete", function(confirmed) {
+            if (confirmed) {
+                $.get(link,function(data){
+                // window.location.href = link;
+            $('#newData').empty().append(data);
+
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'bottom-end',
+                  showConfirmButton: false,
+                  timer: 3000,
+                })
+                if($.isEmptyObject(data.error)){
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Product Deleted Successfully!'
+                    })
+                }else{
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Product Not Deleted!'
+                    })
+                }
+            });
+            };
+        });
+    });

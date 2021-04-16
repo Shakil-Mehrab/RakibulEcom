@@ -21,7 +21,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['prefix'=>'admin','middleware' =>['auth']],function(){
+    // product 
+    Route::get('/view/product',[App\Http\Controllers\Admin\Product\ProductController::class, 'view']);
     Route::get('/create/product',[App\Http\Controllers\Admin\Product\ProductController::class, 'create']);
     Route::post('/store/product',[App\Http\Controllers\Admin\Product\ProductController::class, 'store']);
-
+    Route::get('/delete/product/{slug}',[App\Http\Controllers\Admin\Product\ProductController::class, 'delete']);
+    Route::get('/edit/product/{slug}',[App\Http\Controllers\Admin\Product\ProductController::class, 'edit']);
+    Route::post('/update/product/{slug}',[App\Http\Controllers\Admin\Product\ProductController::class, 'update']);
+    Route::get('/search/product',[App\Http\Controllers\Admin\Product\ProductController::class, 'search']);
 });

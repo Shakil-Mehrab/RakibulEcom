@@ -28,6 +28,7 @@ class CreateProductsTable extends Migration
             $table->longText('description')->nullable();
             $table->string('status');
             $table->bigInteger('viewers')->default(0);
+            $table->string('model')->default('product');
             $table->timestamps();
             $table->softDeletes();
         });

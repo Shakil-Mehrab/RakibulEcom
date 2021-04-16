@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-indigo shadow-sm">
+<nav class="navbar navbar-expand-md navbar-light bg-indigo shadow-sm" style="position: fixed;z-index:99999;width:100%">
     <div class="container-fluid">
         <a class="navbar-brand change_color_to_white" href="{{ url('/') }}">
             {{ config('app.name', 'Hatirpal') }}
