@@ -1,4 +1,4 @@
-@extends('layouts.app')
+<!-- @extends('layouts.app')
 @section('content')
 
 <div class="mt-2">
@@ -79,4 +79,4 @@
     </form>
 
 </div>
-@endsection
+@endsection -->

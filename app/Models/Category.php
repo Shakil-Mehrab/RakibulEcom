@@ -3,13 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Support\Str;
-use App\Bag\Product\ProductStatus;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Http\Request;
 
-class Product extends Model
+class Category extends Model
 {
     use HasFactory;
     public function getRouteKeyName()
@@ -17,9 +15,8 @@ class Product extends Model
         return 'slug';
     }
     public static function booted(){
-        static::creating(function(Product $product){
-            $product->uuid=Str::uuid();
-            $product->status = ProductStatus::PENDING;
+        static::creating(function(Category $category){
+            $category->uuid=Str::uuid();
         });
     }
     public function scopePagination($query,$per_page)
@@ -31,18 +28,18 @@ class Product extends Model
     }
     public static function columns()
     {
-        return collect(Schema::getColumnListing(Product::getQuery()->from))
+        return collect(Schema::getColumnListing(Category::getQuery()->from))
             ->reject(function ($column) {
-                return in_array($column,['deleted_at','description','short_description','updated_at','created_at','uuid']);
+                return in_array($column,['updated_at','created_at','uuid']);
 
             })
             ->toArray();
     }
     public static function edit_columns()
     {
-        return collect(Schema::getColumnListing(Product::getQuery()->from))
+        return collect(Schema::getColumnListing(Category::getQuery()->from))
             ->reject(function ($column) {
-                return in_array($column,['id','user_id','slug','top','order','status','viewers','deleted_at','updated_at','created_at','uuid']);
+                return in_array($column,['id','user_id','slug','_lft','order','status','_rgt','deleted_at','updated_at','created_at','uuid']);
 
             })
             ->toArray();

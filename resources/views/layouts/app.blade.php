@@ -11,7 +11,6 @@
     <title>{{ config('app.name', 'Hatirpal') }}</title>
 
     <!-- Scripts -->
-    <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -21,6 +20,7 @@
     <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
     <script src="https://kit.fontawesome.com/bb2f33706c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{asset('css/backend/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/backend/nav_left_navigation.css')}}">
     
 </head>
 
@@ -44,6 +44,7 @@
             </div>
         </footer>
     </div>
+    <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
@@ -56,29 +57,34 @@
     <script type="text/javascript">
         $(function() {
             $('#dataTable').on('change', '#per_page', function() {
+                var model = $(this).data('model');
                 var per_page = $(this).val();
+                console.log(model)
                 if (per_page) {
-                    $.get("{{URL::to('/admin/view/product?per-page=')}}" + per_page, function(data) {
+                    $.get("{{URL::to('/admin/view')}}"+'/'+model+'?per-page=' + per_page, function(data) {
                         $('#newData').html(data);
                     });
                 }
             });
         });
-
         $(function() {
             $('#dataTable').on('keyup', '#search', function() {
+                var model=$(this).data('model');
                 var query = $(this).val();
-                $.get("{{URL::to('/admin/search/product?query=')}}" + query, function(data) {
+                console.log(model)
+                console.log(query)
+                $.get("{{URL::to('/admin/search')}}"+'/'+model+'?query=' + query, function(data) {
                     $('#newData').empty().append(data);
                 });
             });
         });
         $(function() {
-            $('#newData').on('click', '.paginate_reload_prevent a', function() {
-                var page = $(this).data('id');
-                console.log(page)
-                if (page) {
-                    $.get("{{URL::to('/admin/view/product?page=')}}" + page, function(data) {
+            $('#newData').on('click', '.paginate_reload_prevent a', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                console.log(url)
+                if (url) {
+                    $.get(url, function(data) {
                         $('#newData').empty().append(data);
                     });
                 }
@@ -104,12 +110,12 @@
                         if($.isEmptyObject(data.error)){
                             Toast.fire({
                                 icon: 'success',
-                                title: 'Product Deleted Successfully!'
+                                title: 'Deleted Successfully!'
                             })
                         }else{
                             Toast.fire({
                                 icon: 'error',
-                                title: 'Product Not Deleted!'
+                                title: 'Not Deleted!'
                             })
                         }
                     });

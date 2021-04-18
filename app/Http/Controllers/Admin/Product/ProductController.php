@@ -16,31 +16,35 @@ class ProductController extends Controller
     if (request('per-page')) {
       $datas = Product::orderBy('id', 'desc')
         ->pagination(request('per-page'));
-
       $columns = Product::columns();
-      return view('layouts.table', compact('datas', 'columns'))->render();
+      $model = 'product';
+
+      return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
     }
     if (request('page')) {
       $datas = Product::orderBy('id', 'desc')
-      ->paginate(10);
+        ->pagination(request('per-page'));
       $columns = Product::columns();
-      return view('layouts.table', compact('datas', 'columns'))->render();
+      $model = 'product';
+      return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
     }
 
     $datas = Product::orderBy('id', 'desc')
-      ->paginate(10);
+      ->pagination(request('per-page'));
 
     $columns = Product::columns();
-    return view('layouts.product.view', compact('datas', 'columns'));
+    $model = 'product';
+    return view('layouts.data.view', compact('datas', 'columns', 'model'));
   }
-  
+
   public function search()
   {
     $query = request('query');
     $datas = Product::where('name', 'LIKE', "%" . $query . "%")
       ->pagination(request('per-page'));
     $columns = Product::columns();
-    return view('layouts.table', compact('datas', 'columns'));
+    $model = 'product';
+    return view('layouts.data.table', compact('datas', 'columns', 'model'));
   }
   public function create()
   {
@@ -50,7 +54,7 @@ class ProductController extends Controller
   {
     $product = new Product();
     $product->name = $request['name'];
-    $product->slug = $request['slug'];
+    $product->slug = Str::slug($request['name']);
     $product->price = $request['price'];
     $product->brand = $request['brand'];
     $product->short_description = $request['short_description'];
@@ -76,9 +80,11 @@ class ProductController extends Controller
   }
   public function edit($slug)
   {
-    $product = Product::where('slug', $slug)
+    $data = Product::where('slug', $slug)
       ->firstOrFail();
-    return view('layouts.product.edit', compact('product'));
+    $columns = Product::edit_columns();
+    $model = 'product';
+    return view('layouts.data.edit', compact('data', 'columns', 'model'));
   }
   public function update(ProductUpdateRequest $request, $slug)
   {
@@ -86,7 +92,6 @@ class ProductController extends Controller
     $product = Product::where('slug', $slug)
       ->firstOrFail();
     $product->name = $request['name'];
-    $product->slug = $request['slug'];
     $product->price = $request['price'];
     $product->brand = $request['brand'];
     $product->short_description = $request['short_description'];
@@ -111,13 +116,13 @@ class ProductController extends Controller
   }
   public function delete($slug)
   {
-    // dd('dljldk');
     $product = Product::where('slug', $slug)->firstOrFail();
     $product->delete();
     $datas = Product::orderBy('id', 'desc')
-    ->paginate(10);
+      ->pagination(request('per-page'));
 
-  $columns = Product::columns();
-  return view('layouts.table', compact('datas', 'columns'))->render();
+    $columns = Product::columns();
+    $model = 'product';
+    return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
   }
 }

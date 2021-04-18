@@ -1,4 +1,4 @@
-<!-- @extends('layouts.app')
+@extends('layouts.app')
 @section('content')
 <div class="mt-2">
     <div class="search_head mb-2">
@@ -15,6 +15,6 @@
             <input type="search" name="search" data-model="{{$model}}" id="search" placeholder="Search Here.....">
         </div>
     </div>
-    @include('layouts.table')
+    @include('layouts.data.table')
 </div>
-@endsection -->
+@endsection

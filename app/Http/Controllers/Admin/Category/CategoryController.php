@@ -2,94 +2,96 @@
 
 namespace App\Http\Controllers\Admin\Category;
 
-use App\Http\Controllers\Controller;
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryInputRequest;
+use App\Http\Requests\CategoryUpdateRequest;
 
 class CategoryController extends Controller
 {
-    public function view()
-    {
-      $products=Category::orderBy('id','desc')->paginate(2);
-      $columns=Category::columns();
-      // return $products;
-      return view('layouts.product.view',compact('products','columns'));
+  public function view()
+  {
+    if (request('per-page')) {
+      $datas = Category::orderBy('id', 'desc')
+        ->pagination(request('per-page'));
+
+      $columns = Category::columns();
+      $model = 'category';
+
+      return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
     }
-    public function create()
-    {
-      return view('layouts.product.create');
+    if (request('page')) {
+      $datas = Category::orderBy('id', 'desc')
+        ->pagination(request('per-page'));
+      $columns = Category::columns();
+      $model = 'category';
+      return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
     }
-    public function store(ProductInputRequest $request)
-    {
-      $product = new Product();
-      $product->name = $request['name'];
-      $product->slug = $request['slug'];
-      $product->price = $request['price'];
-      $product->brand = $request['brand'];
-      $product->short_description = $request['short_description'];
-      $product->description = $request['description'];
-     
-      $image=$request->file("image"); 
-      if($image){
-      $image_ext=$image->getClientOriginalExtension();
-      $image_name=Str::random(10);
-      $image_full_name=$image_name.".".$image_ext;
-  
-       $upload_path="images/product/";
-       $image_url=$upload_path.$image_full_name;
-       $success=$image->move($upload_path,$image_full_name);
-      if($success){
-        $product->thumbnail=$image_url;
-      }
-   }
-      
-      $request->user()->products()->save($product);
-      return redirect('admin/view/product');
-  
-    }
-    public function edit($slug)
-    {
-      $product=Product::where('slug',$slug)->firstOrFail();
-      return view('layouts.product.edit',compact('product'));
-    }
-    public function update(ProductUpdateRequest $request,$slug)
-    {
-      // dd($id);
-      $product =Product::where('slug',$slug)->firstOrFail();
-      $product->name = $request['name'];
-      $product->slug = $request['slug'];
-      $product->price = $request['price'];
-      $product->brand = $request['brand'];
-      $product->short_description = $request['short_description'];
-      $product->description = $request['description'];
-     
-      $image=$request->file("image"); 
-      if($image){
-      $image_ext=$image->getClientOriginalExtension();
-      $image_name=Str::random(10);
-      $image_full_name=$image_name.".".$image_ext;
-  
-       $upload_path="images/product/";
-       $image_url=$upload_path.$image_full_name;
-       $success=$image->move($upload_path,$image_full_name);
-      if($success){
-        $product->thumbnail=$image_url;
-      }
-   }
-      
-      $product->update();
-      return back();
-  
-    }
-    public function delete($slug){
-      $product=Product::where('slug',$slug)->firstOrFail();
-      $product->delete();
-      return back();
-    }
-    public function search($slug){
-      $products=Product::where('name','LIKE',"%".$slug."%")->paginate(2);
-      // dd($products);
-      $columns=Product::columns();
-      // return response()->json(['products'=>$products,'columns'=>$columns],200);
-      return view('layouts.product.table',compact('products','columns'));
-    }
+
+    $datas = Category::orderBy('id', 'desc')
+      ->pagination(request('per-page'));
+    $columns = Category::columns();
+    $model = 'category';
+    return view('layouts.data.view', compact('datas', 'columns', 'model'));
   }
+  public function search()
+  {
+    $query = request('query');
+    $datas = Category::where('name', 'LIKE', "%" . $query . "%")
+      ->pagination(request('per-page'));
+    $columns = Category::columns();
+    $model = 'category';
+    return view('layouts.data.table', compact('datas', 'columns', 'model'));
+  }
+  public function create()
+  {
+    $categories = Category::orderBy('name', 'asc')->get();
+    return view('layouts.category.create', compact('categories'));
+  }
+  public function store(CategoryInputRequest $request)
+  {
+    $product = new Category();
+    $product->name = $request['name'];
+    $product->slug = Str::slug($request['name']);
+    $product->price = $request['price'];
+    $product->icon = $request['icon'];
+    $product->parent_id = $request['parent_id'];
+    $request->user()->categories()->save($product);
+    return redirect('admin/view/category');
+  }
+  public function edit($slug)
+  {
+    $categories=Category::orderBy('name','asc')->get();
+    $data = Category::where('slug', $slug)
+      ->firstOrFail();
+    $columns = Category::edit_columns();
+    $model = 'category';
+    return view('layouts.data.edit', compact('data', 'columns', 'model','categories'));
+  }
+  public function update(CategoryUpdateRequest $request, $slug)
+  {
+    // dd($id);
+    $product = Category::where('slug', $slug)
+      ->firstOrFail();
+    $product->name = $request['name'];
+    $product->price = $request['price'];
+    $product->icon = $request['icon'];
+    $product->parent_id = $request['parent_id'];
+
+    $product->update();
+    return back()->withSuccess('Category Updated Successfully');;
+  }
+  public function delete($slug)
+  {
+    $product = Category::where('slug', $slug)->firstOrFail();
+    $product->delete();
+    $datas = Category::orderBy('id', 'desc')
+      ->pagination(request('per-page'));
+
+    $columns = Category::columns();
+    $model = 'category';
+    return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
+  }
+}

@@ -4,8 +4,6 @@
     <div class="search_head mb-2">
     <h6 class="total_data_rows" >{{ucfirst($model)}} Table ({{$datas->total()}})</h6>
         <div class="search" id="dataTable">
-
-
             <span>Per Page</span>
             <select name="per-page" data-model="{{$model}}" id="per_page">
                 <option value="10">10</option>
@@ -15,6 +13,10 @@
             <input type="search" name="search" data-model="{{$model}}" id="search" placeholder="Search Here.....">
         </div>
     </div>
+   <div>
+   </div>
     @include('layouts.table')
+    
+
 </div>
 @endsection -->
