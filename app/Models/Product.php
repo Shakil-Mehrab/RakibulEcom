@@ -45,7 +45,19 @@ class Product extends Model
                 return in_array($column,['id','user_id','slug','top','order','status','viewers','deleted_at','updated_at','created_at','uuid']);
 
             })
-            ->toArray();
+            ->toArray();     
+        // $collection=collect(['name','brand','price','short_description','description','thumbnail']);
+        // return $collection;
+    }
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'product_category')
+            ->withTimestamps();
+    }
+    public function sizes()
+    {
+        return $this->belongsToMany(Size::class, 'product_size')
+            ->withTimestamps();
     }
 
 }

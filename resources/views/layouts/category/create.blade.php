@@ -2,6 +2,9 @@
 @section('content')
 
 <div class="mt-2">
+    <div class="edit_model_heading">
+        <h5 class="text-center">Create Category</h5>
+    </div>
     <form action="{{url('admin/store/category')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="row">

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -41,6 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public static function booted(){
+        static::creating(function(User $user){
+            $user->uuid=Str::uuid();
+            $user->slug =Str::uuid();
+        });
+    }
     public function scopePagination($query,$per_page)
     {
         return $query->paginate(request('per-page',10));
@@ -56,9 +63,21 @@ class User extends Authenticatable
      {
          return collect(Schema::getColumnListing(User::getQuery()->from))
              ->reject(function ($column) {
-                 return in_array($column,['email_verified_at','remember_token','updated_at','created_at','uuid','password',]);
+                 return in_array($column,['email_verified_at','remember_token','updated_at','created_at','password',]);
  
              })
              ->toArray();
+     }
+     public static function edit_columns()
+     {
+         return collect(Schema::getColumnListing(User::getQuery()->from))
+             ->reject(function ($column) {
+                 return in_array($column,['id','slug','updated_at','created_at','uuid','email_verified_at','remember_token','password']);
+ 
+             })
+             ->toArray();     
+         // $collection=collect(['name','brand','price','short_description','description','thumbnail']);
+         // return $collection;
+ 
      }
 }

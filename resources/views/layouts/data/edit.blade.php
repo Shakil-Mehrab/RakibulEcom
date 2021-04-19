@@ -45,12 +45,12 @@
             </div>
             @endif
             @if($column=='description')
-            <div class="form-group{{ $errors->has('short_description') ? ' has-error' : '' }} col-lg-12 col-md-12 col-sm-12">
-                <label for="short_description" class="control-label">Short Description</label>
-                <textarea type="text" class="form-control" name="short_description" id="short_description" placeholder="Short Description" cols="30" rows="6">{{$data->short_description}}</textarea>
-                @if ($errors->has('short_description'))
+            <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }} col-lg-12 col-md-12 col-sm-12">
+                <label for="description" class="control-label">Description</label>
+                <textarea type="text" class="form-control" name="description" id="description" placeholder="Description" cols="30" rows="6">{{$data->description}}</textarea>
+                @if ($errors->has('description'))
                 <span class="help-block">
-                    <strong style="color:red">{{ $errors->first('short_description') }}</strong>
+                    <strong style="color:red">{{ $errors->first('description') }}</strong>
                 </span>
                 @endif
             </div>

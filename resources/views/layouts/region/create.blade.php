@@ -3,9 +3,9 @@
 
 <div class="mt-2">
     <div class="edit_model_heading">
-        <h5 class="text-center">Create Product</h5>
+        <h5 class="text-center">Create Region</h5>
     </div>
-    <form action="{{url('admin/store/product')}}" method="post" enctype="multipart/form-data">
+    <form action="{{url('admin/store/region')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }} col-lg-6 col-md-6 col-sm-12">
@@ -19,7 +19,7 @@
             </div>
             <div class="form-group {{ $errors->has('slug') ? ' has-error' : '' }} col-lg-6 col-md-6 col-sm-12">
                 <label for="slug" class="control-label">Slug</label>
-                <input type="text" class="form-control" name="slug" id="slug" placeholder="Slug wil be created from name" value="Slug wil be created from name">
+                <input type="text" class="form-control" name="slug" id="slug" placeholder="Slug wil be created from name" value="{{Request::old('slug')}}">
                 @if ($errors->has('slug'))
                 <span class="help-block">
                     <strong style="color:red">{{ $errors->first('slug') }}</strong>

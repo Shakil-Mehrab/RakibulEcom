@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin\Product;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductInputRequest;
+use Symfony\Component\Console\Input\Input;
 use App\Http\Requests\ProductUpdateRequest;
 
 class ProductController extends Controller
@@ -48,13 +50,15 @@ class ProductController extends Controller
   }
   public function create()
   {
-    return view('layouts.product.create');
+    $categories=Category::orderBy('name','asc')->get();
+    return view('layouts.product.create',compact('categories'));
   }
   public function store(ProductInputRequest $request)
   {
+    
     $product = new Product();
     $product->name = $request['name'];
-    $product->slug = Str::slug($request['name']);
+    $product->slug = time().'&'.Str::slug($request['name']);
     $product->price = $request['price'];
     $product->brand = $request['brand'];
     $product->short_description = $request['short_description'];
@@ -75,6 +79,10 @@ class ProductController extends Controller
     }
 
     $request->user()->products()->save($product);
+    $product->categories()
+            ->sync(
+              $request['category_id']
+            );
     return redirect('admin/view/product')
       ->withSuccess('Product Created Successfully');
   }
@@ -82,13 +90,14 @@ class ProductController extends Controller
   {
     $data = Product::where('slug', $slug)
       ->firstOrFail();
+    // return $data->categories[0]['name'];
+
     $columns = Product::edit_columns();
     $model = 'product';
     return view('layouts.data.edit', compact('data', 'columns', 'model'));
   }
   public function update(ProductUpdateRequest $request, $slug)
   {
-    // dd($id);
     $product = Product::where('slug', $slug)
       ->firstOrFail();
     $product->name = $request['name'];

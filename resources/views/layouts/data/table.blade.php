@@ -6,7 +6,10 @@
                 @foreach($columns as $column)
                 <th>{{ ucfirst($column) }}</th>
                 @endforeach
+                <th {{$model=='product'?'':'hidden'}}>Category</th>
+                <th {{$model=='product'?'':'hidden'}}>Size</th>
                 <th>Action</th>
+
             </tr>
         </thead>
         <tbody>
@@ -21,6 +24,26 @@
                 <td>{{$data->$column}}</td>
                 @endif
                 @endforeach
+                <td {{$model=='product'?'':'hidden'}}>
+                    @if($model=='product')
+                    @forelse($data->categories as $category)
+                    {{$category->name}} ,<br>
+                    @empty
+                    No Category
+                    @endforelse
+                    @endif
+                </td>
+                <td {{$model=='product'?'':'hidden'}}>
+                    @if($model=='product')
+                    @forelse($data->sizes as $size)
+                    {{$size->size}} ,<br>
+                    @empty
+                    No Size
+                    @endforelse
+                    @endif
+                </td>
+
+
                 <td>
                     <a href="{{url('admin/edit/'.$model,$data->slug)}}" style="color:blue"><i class="fas fa-pencil-alt"></i></a>
                     <a href="{{url('admin/delete/'.$model,$data->slug)}}" class="delete" style="color:red"><i class="far fa-trash-alt"></i></a>
@@ -33,10 +56,10 @@
     <nav aria-label="..." class="pagintion_nav {{$datas->lastPage()==1?'pagination_display':''}}">
         <ul class="pagination">
             <li class="page-item paginate_reload_prevent">
-            @php
-            $previous=$datas->currentPage()-1;
-            $next=$datas->currentPage()+1;
-            @endphp
+                @php
+                $previous=$datas->currentPage()-1;
+                $next=$datas->currentPage()+1;
+                @endphp
                 @if($datas->currentPage()=='1')
                 <span class="page-link">Previous</span>
                 @else
@@ -44,7 +67,7 @@
                 @endif
             </li>
             @for($i=1;$i<=$datas->lastPage();$i++)
-                <li class="page-item paginate_reload_prevent {{ $datas->currentPage()==$i ? 'active' : '' }}" >
+                <li class="page-item paginate_reload_prevent {{ $datas->currentPage()==$i ? 'active' : '' }}">
                     <a class="page-link" data-id="{{$i}}" href="{{URL::to('/admin/view/'.$model.'?page='.$i)}}">{{$i}}</a>
                 </li>
                 @endfor

@@ -1,7 +1,7 @@
 <div class="media_body">
     <div class="user_image">
         <div class="user_img mr-1">
-            <img src="/images/default/user.jpeg" alt="user" width="60px">
+            <img src="{{asset(auth()->user()->thumbnail)}}" alt="user" width="60px">
         </div>
         <h6><a href="#">Rakibul Islam</a></h6>
     </div>
@@ -33,6 +33,16 @@
             </a>
             <ul class="tree_li_ul">
                 <li class="tree_li_ul_li"><a class="change_color_to_dark_white" href="{{url('admin/view/user')}}">View User</a></li>
+            </ul>
+        </li>
+        <li class="tree_li mb-2">
+            <a class="change_color_to_dark_white" href="#" style="position: relative;" onclick="product_show_hide()">
+            Region
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            <ul class="tree_li_ul">
+            <li class="tree_li_ul_li"><a class="change_color_to_dark_white" href="{{url('admin/create/region')}}">Add Region</a></li>
+                <li class="tree_li_ul_li"><a class="change_color_to_dark_white" href="{{url('admin/view/region')}}">View Region</a></li>
             </ul>
         </li>
     </ul>
