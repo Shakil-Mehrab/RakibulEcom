@@ -19,7 +19,7 @@
             </div>
             <div class="form-group {{ $errors->has('slug') ? ' has-error' : '' }} col-lg-6 col-md-6 col-sm-12">
                 <label for="slug" class="control-label">Slug</label>
-                <input type="text" class="form-control" name="slug" id="slug" placeholder="Slug wil be created from name" value="{{Request::old('slug')}}">
+                <input type="text" class="form-control slug_disabled" name="slug" id="slug" placeholder="Slug wil be created from name" value="Slug wil be created from name">
                 @if ($errors->has('slug'))
                 <span class="help-block">
                     <strong style="color:red">{{ $errors->first('slug') }}</strong>

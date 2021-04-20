@@ -53,44 +53,22 @@ class RegionController extends Controller
     }
     public function store(RegionInputRequest $request)
     {
-      
       $product = new Region();
       $product->name = $request['name'];
-      $product->slug = Str::slug($request['name']);
-      $product->price = $request['price'];
-      $product->brand = $request['brand'];
-      $product->short_description = $request['short_description'];
-      $product->description = $request['description'];
-  
-      $image = $request->file("image");
-      if ($image) {
-        $image_ext = $image->getClientOriginalExtension();
-        $image_name = Str::random(10);
-        $image_full_name = $image_name . "." . $image_ext;
-  
-        $upload_path = "images/product/";
-        $image_url = $upload_path . $image_full_name;
-        $success = $image->move($upload_path, $image_full_name);
-        if ($success) {
-          $product->thumbnail = $image_url;
-        }
-      }
-  
-      $request->user()->products()->save($product);
-      $product->categories()
-              ->sync(
-                $request['category_id']
-              );
-      return redirect('admin/view/product')
-        ->withSuccess('Product Created Successfully');
+    $product->parent_id = $request['parent_id'];
+      $product->save();
+      return redirect('admin/view/region')
+        ->withSuccess('Region Created Successfully');
     }
     public function edit($slug)
     {
       $data = Region::where('slug', $slug)
         ->firstOrFail();
       $columns = Region::edit_columns();
+    $categories = Region::orderBy('name','asc')->get();
+
       $model = 'region';
-      return view('layouts.data.edit', compact('data', 'columns', 'model'));
+      return view('layouts.data.edit', compact('data', 'columns', 'model','categories'));
     }
     public function update(RegionUpdateRequest $request, $slug)
     {

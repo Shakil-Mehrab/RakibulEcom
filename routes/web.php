@@ -46,8 +46,9 @@ Route::group(['prefix'=>'admin','middleware' =>['auth']],function(){
    // region
    Route::get('/view/region',[App\Http\Controllers\Admin\Region\RegionController::class, 'view']);
    Route::get('/create/region',[App\Http\Controllers\Admin\Region\RegionController::class, 'create']);
-  //  Route::get('/delete/user/{slug}',[App\Http\Controllers\Admin\User\UserController::class, 'delete']);
-  //  Route::get('/edit/user/{slug}',[App\Http\Controllers\Admin\User\UserController::class, 'edit']);
-  //  Route::post('/update/user/{slug}',[App\Http\Controllers\Admin\User\UserController::class, 'update']);
-  //  Route::get('/search/user',[App\Http\Controllers\Admin\User\UserController::class, 'search']);
+   Route::post('/store/region',[App\Http\Controllers\Admin\Region\RegionController::class, 'store']);
+   Route::get('/delete/region/{slug}',[App\Http\Controllers\Admin\Region\RegionController::class, 'delete']);
+   Route::get('/edit/region/{slug}',[App\Http\Controllers\Admin\Region\RegionController::class, 'edit']);
+  //  Route::post('/update/region/{slug}',[App\Http\Controllers\Admin\Region\RegionController::class, 'update']);
+   Route::get('/search/region',[App\Http\Controllers\Admin\Region\RegionController::class, 'search']);
 });

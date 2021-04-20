@@ -13,33 +13,21 @@ class CategoryController extends Controller
 {
   public function view()
   {
-    if (request('per-page')) {
-      $datas = Category::orderBy('id', 'desc')
-        ->pagination(request('per-page'));
-
-      $columns = Category::columns();
-      $model = 'category';
-
-      return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
-    }
-    if (request('page')) {
-      $datas = Category::orderBy('id', 'desc')
-        ->pagination(request('per-page'));
-      $columns = Category::columns();
-      $model = 'category';
-      return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
-    }
-
     $datas = Category::orderBy('id', 'desc')
       ->pagination(request('per-page'));
     $columns = Category::columns();
     $model = 'category';
+    if (request('per-page')) {
+      return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
+    }
+    if (request('page')) {
+      return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
+    }
     return view('layouts.data.view', compact('datas', 'columns', 'model'));
   }
   public function search()
   {
-    $query = request('query');
-    $datas = Category::where('name', 'LIKE', "%" . $query . "%")
+    $datas = Category::where('name', 'LIKE', "%" . request('query') . "%")
       ->pagination(request('per-page'));
     $columns = Category::columns();
     $model = 'category';
@@ -54,25 +42,23 @@ class CategoryController extends Controller
   {
     $product = new Category();
     $product->name = $request['name'];
-    $product->slug = Str::slug($request['name']);
+    $product->slug =  time() .'-'.Str::slug($request['name']);
     $product->price = $request['price'];
     $product->icon = $request['icon'];
     $product->parent_id = $request['parent_id'];
     $request->user()->categories()->save($product);
-    return redirect('admin/view/category');
+    return redirect('admin/view/category')->withSuccess('Category Created Successfully');
   }
   public function edit($slug)
   {
-    $categories=Category::orderBy('name','asc')->get();
-    $data = Category::where('slug', $slug)
-      ->firstOrFail();
+    $data = Category::where('slug', $slug)->firstOrFail();
+    $categories = Category::orderBy('name', 'asc')->get();
     $columns = Category::edit_columns();
     $model = 'category';
-    return view('layouts.data.edit', compact('data', 'columns', 'model','categories'));
+    return view('layouts.data.edit', compact('data', 'columns', 'model', 'categories'));
   }
   public function update(CategoryUpdateRequest $request, $slug)
   {
-    // dd($id);
     $product = Category::where('slug', $slug)
       ->firstOrFail();
     $product->name = $request['name'];
@@ -89,7 +75,6 @@ class CategoryController extends Controller
     $product->delete();
     $datas = Category::orderBy('id', 'desc')
       ->pagination(request('per-page'));
-
     $columns = Category::columns();
     $model = 'category';
     return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();

@@ -19,7 +19,7 @@
             </div>
             <div class="form-group {{ $errors->has('slug') ? ' has-error' : '' }} col-lg-6 col-md-6 col-sm-12">
                 <label for="slug" class="control-label">Slug</label>
-                <input type="text" class="form-control" name="slug" id="slug" placeholder="Slug wil be created from name" value="Slug wil be created from name">
+                <input type="text" class="form-control slug_disabled" name="slug" id="slug" placeholder="Slug wil be created from name" value="Slug wil be created from name" >
                 @if ($errors->has('slug'))
                 <span class="help-block">
                     <strong style="color:red">{{ $errors->first('slug') }}</strong>
@@ -44,16 +44,30 @@
                 </span>
                 @endif
             </div>
+            <div class="form-group {{ $errors->has('size_id') ? ' has-error' : '' }} col-lg-12 col-md-12 col-sm-12">
+                <label for="size_id" class="control-label">Select Size</label>
+                <div>
+                    @forelse($sizes as $size)
+                    <input type="checkbox" class="form-checkbox" name="size_id[]" id="size_id" value="{{$size->id}}">
+                    <span>{{$size->size}}</span>
+                    @empty
+                    @endforelse
+                </div>
+                @if ($errors->has('size_id'))
+                <span class="help-block">
+                    <strong style="color:red">{{ $errors->first('size_id') }}</strong>
+                </span>
+                @endif
+            </div>
             <div class="form-group {{ $errors->has('category_id') ? ' has-error' : '' }} col-lg-12 col-md-12 col-sm-12">
                 <label for="category_id" class="control-label">Select Category</label>
                 <div>
                     @forelse($categories as $category)
-                    <input type="checkbox" class="form-checkbox" name="category_id[]" id="category_id" value="{{$category->id}}">
+                    <input type="checkbox" class="form-checkbox" name="category_id[]" id="category_id" value="{{$category->id}}" {{$category->id==Request::old('category_id')?'checked':''}}>
                     <span>{{$category->name}}</span>
                     @empty
                     @endforelse
                 </div>
-
                 @if ($errors->has('category_id'))
                 <span class="help-block">
                     <strong style="color:red">{{ $errors->first('category_id') }}</strong>

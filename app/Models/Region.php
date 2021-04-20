@@ -27,8 +27,8 @@ class Region extends Model
             $model->slug=Str::uuid();
             $model->eng_name = $model->slug;
 
-            // $prefix = $model->parent ? $model->parent->slug . ' ' : '';
-            // $model->slug = Str::slug($prefix . $model->slug);
+            $prefix = $model->parent ? $model->parent->slug . ' ' : '';
+            $model->slug = Str::slug($prefix . $model->slug);
         });
     }
     public function scopePagination($query,$per_page)
@@ -39,10 +39,21 @@ class Region extends Model
     {
         return collect(Schema::getColumnListing(Region::getQuery()->from))
             ->reject(function ($column) {
-                return in_array($column,['deleted_at','description','short_description','updated_at','created_at','uuid']);
+                return in_array($column,['deleted_at','updated_at','created_at','uuid','_lft','_rgt','lng','lat']);
 
             })
-            ->toArray();
+            ->toArray();           
+    }
+    public static function edit_columns()
+    {
+        return collect(Schema::getColumnListing(Region::getQuery()->from))
+            ->reject(function ($column) {
+                return in_array($column,['order','updated_at','created_at','uuid','_lft','_rgt','lng','lat','id','slug','eng_name']);
+
+            })
+            ->toArray();     
+        // $collection=collect(['name','brand','price','short_description','description','thumbnail']);
+        // return $collection;
     }
     public function getScoutKey()
     {

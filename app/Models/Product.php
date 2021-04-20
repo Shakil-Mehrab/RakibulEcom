@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Bag\Product\ProductStatus;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Http\Request;
 
 class Product extends Model
 {

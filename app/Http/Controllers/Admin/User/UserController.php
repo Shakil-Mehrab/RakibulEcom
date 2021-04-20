@@ -12,30 +12,18 @@ class UserController extends Controller
 {
   public function view()
   {
-    if (request('per-page')) {
-      $datas = User::orderBy('id', 'desc')
+    $datas = User::orderBy('id', 'desc')
         ->pagination(request('per-page'));
       $columns = User::columns();
       $model = 'user';
-
+    if (request('per-page')) {
       return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
     }
     if (request('page')) {
-      $datas = User::orderBy('id', 'desc')
-        ->pagination(request('per-page'));
-      $columns = User::columns();
-      $model = 'user';
       return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
     }
-
-    $datas = User::orderBy('id', 'desc')
-      ->pagination(request('per-page'));
-
-    $columns = User::columns();
-    $model = 'user';
     return view('layouts.data.view', compact('datas', 'columns', 'model'));
   }
-
   public function search()
   {
     $query = request('query');
@@ -43,16 +31,12 @@ class UserController extends Controller
       ->pagination(request('per-page'));
     $columns = User::columns();
     $model = 'user';
-    return view('layouts.table', compact('datas', 'columns', 'model'));
+    return view('layouts.data.table', compact('datas', 'columns', 'model'));
   }
-
-
   public function edit($slug)
   {
-    $data = User::where('slug', $slug)
-      ->firstOrFail();
+    $data = User::where('slug', $slug)->firstOrFail();
     $columns = User::edit_columns();
-
     $model = 'user';
     return view('layouts.data.edit', compact('data', 'model', 'columns'));
   }
@@ -85,9 +69,8 @@ class UserController extends Controller
     $product->delete();
     $datas = User::orderBy('id', 'desc')
       ->pagination(request('per-page'));
-
     $columns = User::columns();
     $model = 'product';
-    return view('layouts.table', compact('datas', 'columns', 'model'))->render();
+    return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
   }
 }

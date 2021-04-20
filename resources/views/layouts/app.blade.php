@@ -71,10 +71,8 @@
             $('#dataTable').on('keyup', '#search', function() {
                 var model=$(this).data('model');
                 var query = $(this).val();
-                console.log(model)
-                console.log(query)
                 $.get("{{URL::to('/admin/search')}}"+'/'+model+'?query=' + query, function(data) {
-                    $('#newData').empty().append(data);
+                    $('#newData').html(data);
                 });
             });
         });

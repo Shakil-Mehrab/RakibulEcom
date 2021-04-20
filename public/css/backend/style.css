@@ -15,6 +15,9 @@ body {
     font-weight: bold;
     margin-top: 5px;
 }
+.slug_disabled {
+    cursor: none;
+}
 /* view */
 .search_head {
     display: flex;

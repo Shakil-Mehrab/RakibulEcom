@@ -36,7 +36,7 @@
                 <td {{$model=='product'?'':'hidden'}}>
                     @if($model=='product')
                     @forelse($data->sizes as $size)
-                    {{$size->size}} ,<br>
+                    {{$size->size}} ,
                     @empty
                     No Size
                     @endforelse
