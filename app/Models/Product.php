@@ -8,10 +8,11 @@ use App\Bag\Product\ProductStatus;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Traits\PaginationTrait;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory,PaginationTrait;
     public function getRouteKeyName()
     {
         return 'slug';
@@ -22,10 +23,7 @@ class Product extends Model
             $product->status = ProductStatus::PENDING;
         });
     }
-    public function scopePagination($query,$per_page)
-    {
-        return $query->paginate(request('per-page',10));
-    }
+    
     public function user(){
         return $this->belongsTo('App\Models\User');
     }

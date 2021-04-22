@@ -53,6 +53,8 @@ Route::group(['prefix'=>'admin','middleware' =>['auth']],function(){
    Route::get('/search/region',[App\Http\Controllers\Admin\Region\RegionController::class, 'search']);
   //  Contact
   Route::get('/create/contact',[App\Http\Controllers\contact\ContactController::class,'add']);
-  Route::get('/view/contact',[App\Http\Controllers\Admin\Contact\ContactController::class, 'view']);
-
+  Route::get('/view/contact',[App\Http\Controllers\Contact\ContactController::class, 'view']);
+  Route::post('/store/contact',[App\Http\Controllers\Contact\ContactController::class, 'store']);
+  Route::get('/edit/contact/{slug}',[App\Http\Controllers\Contact\ContactController::class, 'edit']);
+  Route::post('/update/contact/{slug}',[App\Http\Controllers\Contact\ContactController::class, 'update']);
 });

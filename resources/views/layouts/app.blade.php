@@ -66,7 +66,6 @@
                 e.preventDefault();
                 var url = $(this).attr('href');
                 var per_page = $('#per_page').val();
-                console.log(url+ '&&per-page=' + per_page)
                 if (url) {
                     $.get(url+ '&&per-page=' + per_page, function(data) {
                         $('#newData').empty().append(data);

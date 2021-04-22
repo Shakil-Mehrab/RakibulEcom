@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\PaginationTrait;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
-    use HasFactory;
+    use HasFactory,PaginationTrait;
     public function getRouteKeyName()
     {
         return 'slug';
@@ -18,10 +19,6 @@ class Category extends Model
         static::creating(function(Category $category){
             $category->uuid=Str::uuid();
         });
-    }
-    public function scopePagination($query,$per_page)
-    {
-        return $query->paginate(request('per-page',10));
     }
     public function user(){
         return $this->belongsTo('App\Models\User');

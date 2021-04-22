@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\PaginationTrait;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable,PaginationTrait;
 
     /**
      * The attributes that are mass assignable.

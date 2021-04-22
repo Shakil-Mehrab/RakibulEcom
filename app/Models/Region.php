@@ -31,10 +31,6 @@ class Region extends Model
             $model->slug = Str::slug($prefix . $model->slug);
         });
     }
-    public function scopePagination($query,$per_page)
-    {
-        return $query->paginate(request('per-page',10));
-    }
     public static function columns()
     {
         return collect(Schema::getColumnListing(Region::getQuery()->from))
