@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
-use phpDocumentor\Reflection\PseudoTypes\True_;
 
-class UserUpdateRequest extends FormRequest
+class CategoryUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +25,7 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'name'=>'required|max:255',
-            'email'=>'required|max:255',
+            'price'=>'required|numeric',
         ];
     }
 }

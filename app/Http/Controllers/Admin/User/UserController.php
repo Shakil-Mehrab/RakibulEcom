@@ -6,7 +6,8 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserUpdateRequest;
+use Intervention\Image\Facades\Image;
+use App\Http\Requests\User\UserUpdateRequest;
 
 class UserController extends Controller
 {
@@ -16,10 +17,7 @@ class UserController extends Controller
         ->pagination(request('per-page'));
       $columns = User::columns();
       $model = 'user';
-    if (request('per-page')) {
-      return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
-    }
-    if (request('page')) {
+      if (request('per-page') or request('page')) {
       return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
     }
     return view('layouts.data.view', compact('datas', 'columns', 'model'));
@@ -47,18 +45,15 @@ class UserController extends Controller
     $product->name = $request['name'];
     $product->email = $request['email'];
     $image = $request->file("image");
-    // dd($image);
     if ($image) {
-      $image_ext = $image->getClientOriginalExtension();
-      $image_name = Str::random(10);
-      $image_full_name = $image_name . "." . $image_ext;
-
-      $upload_path = "images/user/";
-      $image_url = $upload_path . $image_full_name;
-      $success = $image->move($upload_path, $image_full_name);
-      if ($success) {
-        $product->thumbnail = $image_url;
+      if (file_exists($product->thumbnail)) {
+        unlink($product->thumbnail);
       }
+      $image_ext = $image->getClientOriginalExtension();
+      $image_full_name =$product->id.'.'. Str::random(10). "." . $image_ext;
+      $upload_path = "images/user/thumbnail/" . $image_full_name;
+      Image::make($request->file('image'))->resize(200, 200)->save($upload_path);
+      $product->thumbnail = $upload_path;
     }
     $product->update();
     return back()->withSuccess('User Updated Successfully');;
@@ -66,6 +61,9 @@ class UserController extends Controller
   public function delete($slug)
   {
     $product = User::where('slug', $slug)->firstOrFail();
+    if (file_exists($product->thumbnail)) {
+      unlink($product->thumbnail);
+    }
     $product->delete();
     $datas = User::orderBy('id', 'desc')
       ->pagination(request('per-page'));

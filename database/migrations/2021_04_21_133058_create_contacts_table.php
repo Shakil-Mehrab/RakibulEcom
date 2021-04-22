@@ -1,11 +1,10 @@
 <?php
 
-use Kalnoy\Nestedset\NestedSet;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateRegionsTable extends Migration
+class CreateContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +13,13 @@ class CreateRegionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('regions', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
             $table->string('name')->index();
-            $table->string('eng_name')->index()->nullable();
+            $table->float('price')->index();
             $table->string('slug')->index()->nullable();
             $table->bigInteger('order')->nullable();
-            $table->float('lat')->nullable();
-            $table->float('lng')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +31,6 @@ class CreateRegionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('regions');
+        Schema::dropIfExists('contacts');
     }
 }

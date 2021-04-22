@@ -22,10 +22,10 @@
                 <select class="form-control" name="parent_id" id="parent_id">
                     <option value="">Select One</option>
                     <option value="0">None</option>
-                    @forelse($categories as $category)
-                    <option value="{{$category->id}}">{{$category->name}}</option>
+                    @forelse($regions as $region)
+                    <option value="{{$region->id}}">{{$region->name}}</option>
                     @empty
-                    <option value="">No Category</option>
+                    <option value="">No region</option>
                     @endforelse
                 </select>
             </div>      

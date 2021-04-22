@@ -6,8 +6,8 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryInputRequest;
-use App\Http\Requests\CategoryUpdateRequest;
+use App\Http\Requests\Category\CategoryInputRequest;
+use App\Http\Requests\Category\CategoryUpdateRequest;
 
 class CategoryController extends Controller
 {
@@ -17,10 +17,7 @@ class CategoryController extends Controller
       ->pagination(request('per-page'));
     $columns = Category::columns();
     $model = 'category';
-    if (request('per-page')) {
-      return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
-    }
-    if (request('page')) {
+    if (request('per-page') or request('page')) {
       return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
     }
     return view('layouts.data.view', compact('datas', 'columns', 'model'));
@@ -35,8 +32,7 @@ class CategoryController extends Controller
   }
   public function create()
   {
-    $categories = Category::orderBy('name', 'asc')->get();
-    return view('layouts.category.create', compact('categories'));
+    return view('layouts.category.create');
   }
   public function store(CategoryInputRequest $request)
   {
@@ -52,10 +48,9 @@ class CategoryController extends Controller
   public function edit($slug)
   {
     $data = Category::where('slug', $slug)->firstOrFail();
-    $categories = Category::orderBy('name', 'asc')->get();
     $columns = Category::edit_columns();
     $model = 'category';
-    return view('layouts.data.edit', compact('data', 'columns', 'model', 'categories'));
+    return view('layouts.data.edit', compact('data', 'columns', 'model'));
   }
   public function update(CategoryUpdateRequest $request, $slug)
   {

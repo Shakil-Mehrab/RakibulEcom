@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryUpdateRequest extends FormRequest
+class ProductInputRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,9 @@ class CategoryUpdateRequest extends FormRequest
     {
         return [
             'name'=>'required|max:255',
+            'slug'=>'required|max:255|unique:products',
             'price'=>'required|numeric',
+            'brand'=>'required|max:50',
         ];
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Region;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductUpdateRequest extends FormRequest
+class RegionInputRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,6 @@ class ProductUpdateRequest extends FormRequest
     {
         return [
             'name'=>'required|max:255',
-            'price'=>'required|numeric',
-            'brand'=>'required|max:50',
         ];
     }
 }

@@ -17,7 +17,10 @@
             <tr class="bordered">
                 @foreach($columns as $column)
                 @if($column=='thumbnail')
-                <td><img src="{{asset($data->$column)}}" alt="No image" width="50px"></td>
+                <td>
+                <img src="{{asset($data->$column)}}" alt="No image" width="50px">
+                @if($model=='product')({{$data->productImages->count()}})@endif
+                </td>
                 @elseif($column=='user_id')
                 <td>{{$data->user->name}}</td>
                 @else
@@ -47,6 +50,7 @@
                 <td>
                     <a href="{{url('admin/edit/'.$model,$data->slug)}}" style="color:blue"><i class="fas fa-pencil-alt"></i></a>
                     <a href="{{url('admin/delete/'.$model,$data->slug)}}" class="delete" style="color:red"><i class="far fa-trash-alt"></i></a>
+                    @if($model=='category'){{$data->products->count()}}@endif
                 </td>
             </tr>
             @empty

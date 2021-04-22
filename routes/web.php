@@ -49,6 +49,10 @@ Route::group(['prefix'=>'admin','middleware' =>['auth']],function(){
    Route::post('/store/region',[App\Http\Controllers\Admin\Region\RegionController::class, 'store']);
    Route::get('/delete/region/{slug}',[App\Http\Controllers\Admin\Region\RegionController::class, 'delete']);
    Route::get('/edit/region/{slug}',[App\Http\Controllers\Admin\Region\RegionController::class, 'edit']);
-  //  Route::post('/update/region/{slug}',[App\Http\Controllers\Admin\Region\RegionController::class, 'update']);
+   Route::post('/update/region/{slug}',[App\Http\Controllers\Admin\Region\RegionController::class, 'update']);
    Route::get('/search/region',[App\Http\Controllers\Admin\Region\RegionController::class, 'search']);
+  //  Contact
+  Route::get('/create/contact',[App\Http\Controllers\contact\ContactController::class,'add']);
+  Route::get('/view/contact',[App\Http\Controllers\Admin\Contact\ContactController::class, 'view']);
+
 });

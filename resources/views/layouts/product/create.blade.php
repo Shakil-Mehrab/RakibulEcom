@@ -93,12 +93,21 @@
                 </span>
                 @endif
             </div>
-            <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }} col-lg-12 col-md-12 col-sm-12">
-                <label for="image" class="control-label">Choose Image</label>
+            <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }} col-lg-6 col-md-6 col-sm-12">
+                <label for="image" class="control-label">Tumbnail</label>
                 <input type="file" class="form-control" name="image" id="image">
                 @if ($errors->has('image'))
                 <span class="help-block">
                     <strong style="color:red">{{ $errors->first('image') }}</strong>
+                </span>
+                @endif
+            </div>
+            <div class="form-group {{ $errors->has('images') ? ' has-error' : '' }} col-lg-6 col-md-6 col-sm-12">
+                <label for="images" class="control-label">Related Images</label>
+                <input type="file" class="form-control" name="images[]" id="images" multiple>
+                @if ($errors->has('images'))
+                <span class="help-block">
+                    <strong style="color:red">{{ $errors->first('images') }}</strong>
                 </span>
                 @endif
             </div>
@@ -110,4 +119,13 @@
     </form>
 
 </div>
+@endsection
+@section('js')
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea'
+        });
+
+    </script>
 @endsection

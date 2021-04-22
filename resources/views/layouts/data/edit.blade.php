@@ -19,20 +19,7 @@
                 @endif
             </div>
             @endif
-            @if($column=='parent_id')
-            <div class="form-group {{ $errors->has('parent_id') ? ' has-error' : '' }} col-lg-6 col-md-6 col-sm-12" style="order:3">
-                <label for="parent_id" class="control-label">Parent</label>
-                <select class="form-control" name="parent_id" id="parent_id">
-                    <option value="" >Select One</option>
-                    <option value="">None</option>
-                    @forelse($categories as $category)
-                    <option value="{{$category->id}}" {{$data->parent_id==$category->id?'selected':''}} >{{$category->name}}</option>
-                    @empty
-                    <option value="">No Category</option>
-                    @endforelse
-                </select>
-            </div>
-            @endif
+            
            
             @if($column=='short_description')
             <div class="form-group{{ $errors->has('short_description') ? ' has-error' : '' }} col-lg-12 col-md-12 col-sm-12" style="order: 8;">
@@ -57,8 +44,8 @@
             </div>
             @endif
             @if($column=='thumbnail')
-            <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }} col-lg-12 col-md-12 col-sm-12" style="order: 12;">
-                <label for="image" class="control-label">Choose Image</label>
+            <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }} col-lg-6 col-md-6 col-sm-12" style="order: 12;">
+                <label for="image" class="control-label">Thumbnail</label>
                 <input type="file" class="form-control" name="image" id="image">
                 @if ($errors->has('image'))
                 <span class="help-block">
@@ -70,38 +57,17 @@
             @endif
             @empty
             @endforelse
-            @if($model=='product')
-            <div class="form-group {{ $errors->has('size_id') ? ' has-error' : '' }} col-lg-6 col-md-6 col-sm-12" style="order: 3;">
-                <label for="size_id" class="control-label">Select Size</label>
-                <div>
-                    @forelse($sizes as $index=>$size)
-                    <input type="checkbox" class="form-checkbox" name="size_id[]" id="size_id" value="{{$size->id}}" {{$data->sizes->contains($size->id)?'checked':''}}>
-                    <span>{{$size->size}}</span>
-                    @empty
-                    @endforelse
-                </div>
-                @if ($errors->has('size_id'))
-                <span class="help-block">
-                    <strong style="color:red">{{ $errors->first('size_id') }}</strong>
-                </span>
-                @endif
-            </div>
-            <div class="form-group {{ $errors->has('category_id') ? ' has-error' : '' }} col-lg-12 col-md-12 col-sm-12" style="order: 4;">
-                <label for="category_id" class="control-label">Select Category</label>
-                <div>
-                    @forelse($categories as $category)
-                    <input type="checkbox" class="form-checkbox" name="category_id[]" id="category_id" value="{{$category->id}}" {{$data->categories->contains($category->id)?'checked':''}}>
-                    <span>{{$category->name}}</span>
-                    @empty
-                    @endforelse
-                </div>
 
-                @if ($errors->has('category_id'))
-                <span class="help-block">
-                    <strong style="color:red">{{ $errors->first('category_id') }}</strong>
-                </span>
-                @endif
-            </div>
+            @if($model=='product')
+            @include('layouts.product.partial_edit')
+            @endif
+
+            @if($model=='category')
+            @include('layouts.category.partial_edit')
+            @endif
+
+            @if($model=='region')
+            @include('layouts.region.partial_edit')
             @endif
             <div class="col-lg-12 col-md-12 col-sm-12 mt-2" style="order: 20;">
                 <input type="submit" class="form-control btn btn-success" value="Update">
@@ -109,4 +75,13 @@
         </div>
     </form>
 </div>
+@endsection
+@section('js')
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea'
+        });
+
+    </script>
 @endsection

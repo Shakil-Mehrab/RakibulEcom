@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Region;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegionInputRequest extends FormRequest
+class RegionUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class RegionInputRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>'required|max:255',
         ];
     }
 }
