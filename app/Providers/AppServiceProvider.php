@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Size;
 use App\Models\Region;
 use App\Models\Category;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,9 +28,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Schema::defaultStringLength(191);
+
         View::share('categories',Category::orderBy('name', 'asc')->get());
         View::share('regions',Region::orderBy('name', 'asc')->get());
         View::share('sizes',Size::get());
+
 
     }
 }

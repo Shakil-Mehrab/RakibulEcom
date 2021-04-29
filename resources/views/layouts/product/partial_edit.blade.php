@@ -11,7 +11,7 @@
     <label for="size_id" class="control-label">Select Size</label>
     <div>
         @forelse($sizes as $index=>$size)
-        <input type="checkbox" class="form-checkbox" name="size_id[]" id="size_id" value="{{$size->id}}" {{$data->sizes->contains($size->id)?'checked':''}}>
+        <input type="checkbox" class="form-checkbox" name="size_id[]" id="size_id" value="{{$size->id}}" {{$data?$data->sizes->contains($size->id)?'checked':'':''}}>
         <span>{{$size->size}}</span>
         @empty
         @endforelse
@@ -26,7 +26,7 @@
     <label for="category_id" class="control-label">Select Category</label>
     <div>
         @forelse($categories as $category)
-        <input type="checkbox" class="form-checkbox" name="category_id[]" id="category_id" value="{{$category->id}}" {{$data->categories->contains($category->id)?'checked':''}}>
+        <input type="checkbox" class="form-checkbox" name="category_id[]" id="category_id" value="{{$category->id}}" {{$data?$data->categories->contains($category->id)?'checked':'':''}}>
         <span>{{$category->name}}</span>
         @empty
         @endforelse

@@ -4,10 +4,8 @@
     <div class="search_head mb-2">
     <h6 class="total_data_rows" >{{ucfirst($model)}} Table ({{$datas->total()}})</h6>
         <div class="search" id="dataTable">
-
-
             <span>Per Page</span>
-            <select name="per-page" data-model="{{$model}}" id="per_page">
+            <select name="per-page" data-model="{{$model}}" data-total="{{$datas->total()}}" id="per_page">
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="50">50</option>

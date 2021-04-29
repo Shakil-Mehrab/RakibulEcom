@@ -4,7 +4,7 @@
         <option value="">Select One</option>
         <option value="">None</option>
         @forelse($regions as $region)
-        <option value="{{$region->id}}" {{$data->parent_id==$region->id?'selected':''}}>{{$region->name}}</option>
+        <option value="{{$region->id}}" {{$data?$data->parent_id==$region->id?'selected':'':''}}>{{$region->name}}</option>
         @empty
         <option value="">No region</option>
         @endforelse

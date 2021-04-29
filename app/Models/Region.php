@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Support\Str;
+use App\Models\Traits\PaginationTrait;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\Region\RegionColumn;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Region extends Model
 {
-    use HasFactory;
+    use HasFactory,PaginationTrait,RegionColumn;
     protected $fillable = [
         'name',
         'uuid',
@@ -20,6 +22,10 @@ class Region extends Model
         'lat',
         'lng'
     ];
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
     public static function booted()
     {
         static::creating(function (Model $model) {
@@ -31,34 +37,8 @@ class Region extends Model
             $model->slug = Str::slug($prefix . $model->slug);
         });
     }
-    public static function columns()
-    {
-        return collect(Schema::getColumnListing(Region::getQuery()->from))
-            ->reject(function ($column) {
-                return in_array($column,['deleted_at','updated_at','created_at','uuid','_lft','_rgt','lng','lat']);
-
-            })
-            ->toArray();           
-    }
-    public static function edit_columns()
-    {
-        return collect(Schema::getColumnListing(Region::getQuery()->from))
-            ->reject(function ($column) {
-                return in_array($column,['order','updated_at','created_at','uuid','_lft','_rgt','lng','lat','id','slug','eng_name']);
-
-            })
-            ->toArray();     
-        // $collection=collect(['name','brand','price','short_description','description','thumbnail']);
-        // return $collection;
-    }
-    public function getScoutKey()
-    {
-        return $this->slug;
-    }
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-
+   
+   
+   
 
 }

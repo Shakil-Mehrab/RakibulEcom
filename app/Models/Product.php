@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Bag\Product\ProductStatus;
+use App\Models\Traits\PaginationTrait;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\Product\ProductColumn;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Traits\PaginationTrait;
 
 class Product extends Model
 {
-    use HasFactory,PaginationTrait;
+    use HasFactory,PaginationTrait,ProductColumn;
     public function getRouteKeyName()
     {
         return 'slug';
@@ -27,26 +28,7 @@ class Product extends Model
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
-    public static function columns()
-    {
-        return collect(Schema::getColumnListing(Product::getQuery()->from))
-            ->reject(function ($column) {
-                return in_array($column,['deleted_at','description','short_description','updated_at','created_at','uuid']);
-
-            })
-            ->toArray();
-    }
-    public static function edit_columns()
-    {
-        return collect(Schema::getColumnListing(Product::getQuery()->from))
-            ->reject(function ($column) {
-                return in_array($column,['id','user_id','slug','top','order','status','viewers','deleted_at','updated_at','created_at','uuid']);
-
-            })
-            ->toArray();     
-        // $collection=collect(['name','brand','price','short_description','description','thumbnail']);
-        // return $collection;
-    }
+    
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'product_category')

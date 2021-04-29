@@ -27,6 +27,7 @@ class ProductUpdateRequest extends FormRequest
             'name'=>'required|max:255',
             'price'=>'required|numeric',
             'brand'=>'required|max:50',
+            'image'=>'mimes:jpg,png',
         ];
     }
 }

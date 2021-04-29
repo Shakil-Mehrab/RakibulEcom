@@ -11,4 +11,8 @@ trait PaginationTrait
     {
         return $query->paginate(request('per-page',10));
     }
+    public function scopeSearchPagination($query,$per_page)
+    {
+        return $query->paginate(request('per-page',30));
+    }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Category;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Bag\Delete\DeleteData;
+use App\Bag\Category\CategoryInput;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\CategoryInputRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
@@ -25,23 +27,23 @@ class CategoryController extends Controller
   public function search()
   {
     $datas = Category::where('name', 'LIKE', "%" . request('query') . "%")
-      ->pagination(request('per-page'));
+      ->searchPagination(request('per-page'));
     $columns = Category::columns();
     $model = 'category';
     return view('layouts.data.table', compact('datas', 'columns', 'model'));
   }
   public function create()
   {
-    return view('layouts.category.create');
+    $data = '';
+    $columns = Category::create_columns();
+    $model = 'category';
+    return view('layouts.data.create', compact('data', 'columns', 'model'));
   }
-  public function store(CategoryInputRequest $request)
+  public function store(CategoryInputRequest $request, CategoryInput $categoryInput)
   {
     $product = new Category();
-    $product->name = $request['name'];
-    $product->slug =  time() .'-'.Str::slug($request['name']);
-    $product->price = $request['price'];
-    $product->icon = $request['icon'];
-    $product->parent_id = $request['parent_id'];
+    $categoryInput->storeUpdate($product, $request);
+    $product->slug =  time() . '-' . Str::slug($request['name']);
     $request->user()->categories()->save($product);
     return redirect('admin/view/category')->withSuccess('Category Created Successfully');
   }
@@ -52,22 +54,17 @@ class CategoryController extends Controller
     $model = 'category';
     return view('layouts.data.edit', compact('data', 'columns', 'model'));
   }
-  public function update(CategoryUpdateRequest $request, $slug)
+  public function update(CategoryUpdateRequest $request, CategoryInput $categoryInput, $slug)
   {
     $product = Category::where('slug', $slug)
       ->firstOrFail();
-    $product->name = $request['name'];
-    $product->price = $request['price'];
-    $product->icon = $request['icon'];
-    $product->parent_id = $request['parent_id'];
-
+    $categoryInput->storeUpdate($product, $request);
     $product->update();
     return back()->withSuccess('Category Updated Successfully');;
   }
-  public function delete($slug)
+  public function delete(DeleteData $delete, $slug)
   {
-    $product = Category::where('slug', $slug)->firstOrFail();
-    $product->delete();
+    $delete->catDelete($slug);
     $datas = Category::orderBy('id', 'desc')
       ->pagination(request('per-page'));
     $columns = Category::columns();

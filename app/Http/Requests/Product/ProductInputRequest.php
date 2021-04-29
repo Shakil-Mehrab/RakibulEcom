@@ -25,9 +25,9 @@ class ProductInputRequest extends FormRequest
     {
         return [
             'name'=>'required|max:255',
-            'slug'=>'required|max:255|unique:products',
             'price'=>'required|numeric',
             'brand'=>'required|max:50',
+            'image'=>'mimes:jpg,png',
         ];
     }
 }

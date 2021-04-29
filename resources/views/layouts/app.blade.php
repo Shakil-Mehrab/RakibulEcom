@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +17,10 @@
     <script src="https://kit.fontawesome.com/bb2f33706c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{asset('css/backend/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/backend/nav_left_navigation.css')}}">
+    @yield('css')
+
 </head>
+
 <body>
     <div id="app">
         @include('layouts.includes.nav')
@@ -27,7 +31,7 @@
                 </div>
                 <div class="col-lg-10 col-md-9 col-sm-8 main_content" style="margin-top: 55px;height:600px;overflow:scroll;">
                     @include('message.alert')
-                    @yield('content')                  
+                    @yield('content')
                 </div>
             </div>
         </div>
@@ -47,13 +51,22 @@
     <!-- <script src="{{ asset('js/backend/own.js') }}" defer></script> -->
     @yield('js')
     <script type="text/javascript">
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+        });
         $(function() {
             $('#dataTable').on('change', '#per_page', function() {
                 var model = $(this).data('model');
+                var total = $(this).data('total');
                 var per_page = $(this).val();
                 var page = $('.paginate_reload_prevent.active a').data('id');
-
-                console.log(page)
+                var lastpage = Math.ceil(total / per_page)
+                if (lastpage < page) {
+                    page = lastpage;
+                }
                 if (per_page) {
                     $.get("{{URL::to('/admin/view')}}" + '/' + model + '?per-page=' + per_page + '&&page=' + page, function(data) {
                         $('#newData').html(data);
@@ -67,7 +80,7 @@
                 var url = $(this).attr('href');
                 var per_page = $('#per_page').val();
                 if (url) {
-                    $.get(url+ '&&per-page=' + per_page, function(data) {
+                    $.get(url + '&&per-page=' + per_page, function(data) {
                         $('#newData').empty().append(data);
                     });
                 }
@@ -82,24 +95,50 @@
                 });
             });
         });
-        
+        $(function() {
+            $('#newData').on('click', '#selectallboxes', function(event) {
+                if (this.checked) {
+                    $('.selectall').each(function() {
+                        this.checked = true;
+                    });
+                } else {
+                    $('.selectall').each(function() {
+                        this.checked = false;
+                    });
+                }
+            });
+        });
+        $('#newData').on('submit', '#bulkDelete', function(e) {
+            e.preventDefault();
+            var frmdata = $(this).serialize();
+            $.ajax({
+                    url: "{{url('admin/bulk/delete')}}",
+                    type: 'POST',
+                    data: frmdata,
+                })
+                .done(function(data) {
+                    $('#newData').html(data);
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Deleted Successfully!'
+                    })
+                })
+                .fail(function(error) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Please check the boxes and select the method!'
+                    })
+                });
+        });
         $(function() {
             $('#newData').on('click', '.delete', function(e) {
                 e.preventDefault();
                 var link = $(this).attr("href");
-                console.log(link)
                 bootbox.confirm("Are you sure to delete", function(confirmed) {
                     if (confirmed) {
                         $.get(link, function(data) {
                             // window.location.href = link;
                             $('#newData').empty().append(data);
-
-                            const Toast = Swal.mixin({
-                                toast: true,
-                                position: 'bottom-end',
-                                showConfirmButton: false,
-                                timer: 3000,
-                            })
                             if ($.isEmptyObject(data.error)) {
                                 Toast.fire({
                                     icon: 'success',
@@ -118,5 +157,4 @@
         });
     </script>
 </body>
-
 </html>

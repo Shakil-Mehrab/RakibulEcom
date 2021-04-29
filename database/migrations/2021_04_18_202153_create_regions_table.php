@@ -18,8 +18,10 @@ class CreateRegionsTable extends Migration
             $table->id();
             $table->uuid('uuid');
             $table->string('name')->index();
+            NestedSet::columns($table);
+            $table->float('expense')->nullable();
             $table->string('eng_name')->index()->nullable();
-            $table->string('slug')->index()->nullable();
+            $table->string('slug')->index();
             $table->bigInteger('order')->nullable();
             $table->float('lat')->nullable();
             $table->float('lng')->nullable();

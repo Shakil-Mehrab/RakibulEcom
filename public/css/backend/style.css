@@ -18,6 +18,9 @@ body {
 .slug_disabled {
     cursor: none;
 }
+.select2-search--dropdown .select2-search__field {
+    outline: none;
+}
 /* view */
 .search_head {
     display: flex;
@@ -35,6 +38,23 @@ body {
 }
 .search input {
     outline: none;
+}
+.bulk_option {
+    display: flex;
+    justify-items: center;
+    height: 21px;
+    margin-bottom: 5px;
+}
+.bulk_option select {
+    outline: none;
+    margin-left: 5px;
+}
+.bulk_option input {
+    margin-left: 5px;
+    background-color: brown;
+    border-radius: 5px;
+    color: white;
+    padding-bottom: 17px;
 }
 #newData {
     z-index: 222;

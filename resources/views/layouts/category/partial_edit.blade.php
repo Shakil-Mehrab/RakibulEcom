@@ -4,7 +4,7 @@
         <option value="">Select One</option>
         <option value="">None</option>
         @forelse($categories as $category)
-        <option value="{{$category->id}}" {{$data->parent_id==$category->id?'selected':''}}>{{$category->name}}</option>
+        <option value="{{$category->id}}" {{$data?$data->parent_id==$category->id?'selected':'':''}}>{{$category->name}}</option>
         @empty
         <option value="">No Category</option>
         @endforelse

@@ -25,7 +25,6 @@ class CategoryInputRequest extends FormRequest
     {
         return [
             'name'=>'required|max:255',
-            'slug'=>'required|max:255|unique:products',
             'price'=>'required|numeric',
         ];
     }

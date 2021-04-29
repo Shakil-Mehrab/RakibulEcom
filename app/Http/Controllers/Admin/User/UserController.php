@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Models\User;
-use Illuminate\Support\Str;
+use App\Bag\ImageHandling;
 use Illuminate\Http\Request;
+use App\Bag\Delete\DeleteData;
 use App\Http\Controllers\Controller;
-use Intervention\Image\Facades\Image;
 use App\Http\Requests\User\UserUpdateRequest;
 
 class UserController extends Controller
@@ -26,7 +26,7 @@ class UserController extends Controller
   {
     $query = request('query');
     $datas = User::where('name', 'LIKE', "%" . $query . "%")
-      ->pagination(request('per-page'));
+      ->searchPagination(request('per-page'));
     $columns = User::columns();
     $model = 'user';
     return view('layouts.data.table', compact('datas', 'columns', 'model'));
@@ -38,37 +38,24 @@ class UserController extends Controller
     $model = 'user';
     return view('layouts.data.edit', compact('data', 'model', 'columns'));
   }
-  public function update(UserUpdateRequest $request, $slug)
+  public function update(UserUpdateRequest $request,ImageHandling $imageHandling, $slug)
   {
     $product = User::where('slug', $slug)
       ->firstOrFail();
     $product->name = $request['name'];
     $product->email = $request['email'];
-    $image = $request->file("image");
-    if ($image) {
-      if (file_exists($product->thumbnail)) {
-        unlink($product->thumbnail);
-      }
-      $image_ext = $image->getClientOriginalExtension();
-      $image_full_name =$product->id.'.'. Str::random(10). "." . $image_ext;
-      $upload_path = "images/user/thumbnail/" . $image_full_name;
-      Image::make($request->file('image'))->resize(200, 200)->save($upload_path);
-      $product->thumbnail = $upload_path;
-    }
+    $imageHandling->uploadImage($product,$request,'user');
     $product->update();
     return back()->withSuccess('User Updated Successfully');;
   }
-  public function delete($slug)
+  public function delete(DeleteData $delete,$slug)
   {
-    $product = User::where('slug', $slug)->firstOrFail();
-    if (file_exists($product->thumbnail)) {
-      unlink($product->thumbnail);
-    }
-    $product->delete();
+    $delete->userDelete($slug);
+
     $datas = User::orderBy('id', 'desc')
       ->pagination(request('per-page'));
     $columns = User::columns();
-    $model = 'product';
+    $model = 'user';
     return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
   }
 }

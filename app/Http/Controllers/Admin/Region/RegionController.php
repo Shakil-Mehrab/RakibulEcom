@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Region;
 use App\Models\Region;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Bag\Delete\DeleteData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Region\RegionInputRequest;
 use App\Http\Requests\Region\RegionUpdateRequest;
@@ -27,20 +28,24 @@ class RegionController extends Controller
   {
     $query = request('query');
     $datas = Region::where('name', 'LIKE', "%" . $query . "%")
-      ->pagination(request('per-page'));
+      ->searchPagination(request('per-page'));
     $columns = Region::columns();
     $model = 'region';
     return view('layouts.data.table', compact('datas', 'columns', 'model'));
   }
   public function create()
   {
-    return view('layouts.region.create');
+    $data ='';
+    $columns = Region::create_columns();
+    $model = 'region';
+    return view('layouts.data.create', compact('data', 'columns', 'model'));
   }
   public function store(RegionInputRequest $request)
   {
     $product = new Region();
     $product->name = $request['name'];
     $product->parent_id = $request['parent_id'];
+    $product->expense = $request['expense'];
     $product->save();
     return redirect('admin/view/region')
       ->withSuccess('Region Created Successfully');
@@ -59,13 +64,14 @@ class RegionController extends Controller
       ->firstOrFail();
     $product->name = $request['name'];
     $product->parent_id = $request['parent_id'];
+    $product->expense = $request['expense'];
     $product->update();
     return back()->withSuccess('Region Updated Successfully');;
   }
-  public function delete($slug)
+  public function delete(DeleteData $delete,$slug)
   {
-    $product = Region::where('slug', $slug)->firstOrFail();
-    $product->delete();
+    $delete->regionDelete($slug);
+    
     $datas = Region::orderBy('id', 'desc')
       ->pagination(request('per-page'));
 

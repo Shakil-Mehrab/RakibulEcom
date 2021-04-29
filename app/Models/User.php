@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\PaginationTrait;
+use App\Models\Traits\User\UserColumn;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Notifications\Notifiable;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,PaginationTrait;
+    use HasFactory, Notifiable,PaginationTrait,UserColumn;
 
     /**
      * The attributes that are mass assignable.
@@ -43,6 +44,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
     public static function booted(){
         static::creating(function(User $user){
             $user->uuid=Str::uuid();
@@ -60,25 +65,7 @@ class User extends Authenticatable
     public function categories(){
         return $this->hasMany('App\Models\Category');
      }
-     public static function columns()
-     {
-         return collect(Schema::getColumnListing(User::getQuery()->from))
-             ->reject(function ($column) {
-                 return in_array($column,['email_verified_at','remember_token','updated_at','created_at','password',]);
- 
-             })
-             ->toArray();
-     }
-     public static function edit_columns()
-     {
-         return collect(Schema::getColumnListing(User::getQuery()->from))
-             ->reject(function ($column) {
-                 return in_array($column,['id','slug','updated_at','created_at','uuid','email_verified_at','remember_token','password']);
- 
-             })
-             ->toArray();     
-         // $collection=collect(['name','brand','price','short_description','description','thumbnail']);
-         // return $collection;
- 
+     public function address(){
+        return $this->hasMany('App\Models\Address');
      }
 }
