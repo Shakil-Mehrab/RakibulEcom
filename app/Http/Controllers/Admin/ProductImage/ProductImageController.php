@@ -16,7 +16,7 @@ class ProductImageController extends Controller
     $model = 'productimage';
     $columns = ProductImage::columns();
    
-    if (request('per-page','') or request('page','')) {
+    if (request('per-page') or request('page')) {
       return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
     }
     return view('layouts.data.view', compact('datas', 'columns', 'model'));

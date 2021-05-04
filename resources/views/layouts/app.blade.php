@@ -17,10 +17,11 @@
     <script src="https://kit.fontawesome.com/bb2f33706c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{asset('css/backend/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/backend/nav_left_navigation.css')}}">
+    <link rel="stylesheet" href="{{asset('css/backend/googletranslator.css')}}">
+
     @yield('css')
 
 </head>
-
 <body>
     <div id="app">
         @include('layouts.includes.nav')
@@ -41,6 +42,15 @@
             </div>
         </footer>
     </div>
+    <!-- google translator 
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en'
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
     <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
@@ -49,6 +59,11 @@
     <script type="text/javascript" src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- <script src="{{ asset('js/backend/own.js') }}" defer></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.js"></script>
+
+
+
     @yield('js')
     <script type="text/javascript">
         const Toast = Swal.mixin({
@@ -73,6 +88,46 @@
                     });
                 }
             });
+        });
+        $(function() {
+            $('#division_id').on('change', function() {
+                var id = $(this).val();
+                if (id) {
+                    $.get("{{url('admin/division?id=')}}" + id, function(data) {
+                        var s = '<option></option>';
+                        data.forEach(function(row) {
+                            s += '<option value="' + row.id + '">' + row.name + '</option>'
+                        })
+                        $('#district_id').removeAttr('disabled');
+                        $('#district_id').html(s);
+                    });
+                } else {
+                    $('#district_id').attr('disabled', 'disabled');
+                    s = '<option></option>'
+                    $('#district_id').html(s);
+                }
+            })
+        });
+        $(function() {
+            $('#district_id').on('change', function() {
+                var id = $(this).val();
+                if (id) {
+                    $.get("{{url('admin/district?id=')}}" + id, function(data) {
+                        var s = '<option></option>';
+                        data.forEach(function(row) {
+                            s += '<option value="' + row.id + '">' + row.name + '</option>'
+                        })
+                        $('#checking_place_id').removeAttr('disabled');
+                        $('#checking_place_id').html(s);
+                    });
+
+                } else {
+                    $('#checking_place_id').attr('disabled', 'disabled');
+                    s = '<option></option>'
+                    $('#checking_place_id').html(s);
+                }
+
+            })
         });
         $(function() {
             $('#newData').on('click', '.paginate_reload_prevent a', function(e) {
@@ -108,28 +163,32 @@
                 }
             });
         });
-        $('#newData').on('submit', '#bulkDelete', function(e) {
-            e.preventDefault();
-            var frmdata = $(this).serialize();
-            $.ajax({
-                    url: "{{url('admin/bulk/delete')}}",
-                    type: 'POST',
-                    data: frmdata,
-                })
-                .done(function(data) {
-                    $('#newData').html(data);
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Deleted Successfully!'
+
+        $(function() {
+            $('#newData').on('submit', '#bulkDelete', function(e) {
+                e.preventDefault();
+                var frmdata = $(this).serialize();
+                $.ajax({
+                        url: "{{url('admin/bulk/delete')}}",
+                        type: 'POST',
+                        data: frmdata,
                     })
-                })
-                .fail(function(error) {
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'Please check the boxes and select the method!'
+                    .done(function(data) {
+                        $('#newData').html(data);
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Deleted Successfully!'
+                        })
                     })
-                });
+                    .fail(function(error) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Please check the boxes and select the method!'
+                        })
+                    });
+            });
         });
+
         $(function() {
             $('#newData').on('click', '.delete', function(e) {
                 e.preventDefault();
@@ -157,4 +216,5 @@
         });
     </script>
 </body>
+
 </html>

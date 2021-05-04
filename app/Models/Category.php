@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use App\Models\Traits\PaginationTrait;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\Category\CategoryColumn;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,8 +16,8 @@ class Category extends Model
         return 'slug';
     }
     public static function booted(){
-        static::creating(function(Category $category){
-            $category->uuid=Str::uuid();
+        static::creating(function(Model $model){
+            $model->uuid=Str::uuid();
         });
     }
     public function user(){

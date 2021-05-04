@@ -5,6 +5,19 @@ body {
     font-family: "Roboto", sans-serif;
     font-size: 14px;
 }
+/* status button  */
+.toggle-on.btn,
+.toggle-off.btn {
+    font-size: 12px;
+    padding: 0 !important;
+}
+.toggle.btn {
+    width: 50px !important;
+    min-width: 50px !important;
+    height: 20px !important;
+    min-height: 20px !important;
+}
+
 .main_content {
     margin-bottom: 50px;
 }
@@ -55,6 +68,8 @@ body {
     border-radius: 5px;
     color: white;
     padding-bottom: 17px;
+    height: 10px;
+    overflow: hidden;
 }
 #newData {
     z-index: 222;

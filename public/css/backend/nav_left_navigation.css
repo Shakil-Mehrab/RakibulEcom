@@ -10,6 +10,9 @@ a {
 }
 
 /* nav  */
+nav {
+    height: 55px;
+}
 .bg-indigo {
     background-color: #3c8dbc !important;
 }

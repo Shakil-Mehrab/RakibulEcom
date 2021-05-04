@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Address;
 
+use App\Models\Region;
 use App\Models\Address;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Bag\Delete\DeleteData;
-use App\Bag\Address\AddressInput;
+use App\Bag\Admin\Delete\DeleteData;
 use App\Http\Controllers\Controller;
+use App\Bag\Admin\StoreUpdate\StoreUpdateData;
 use App\Http\Requests\Address\AddressInputRequest;
 use App\Http\Requests\Address\AddressUpdateRequest;
 
@@ -20,7 +20,7 @@ class AddressController extends Controller
     $model = 'address';
     $columns = Address::columns();
 
-    if (request('per-page', '') or request('page', '')) {
+    if (request('per-page') or request('page')) {
       return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
     }
     return view('layouts.data.view', compact('datas', 'columns', 'model'));
@@ -37,18 +37,17 @@ class AddressController extends Controller
   public function create()
   {
     $data = '';
+    $divisions=Region::where('parent_id',2)->get();
+
     $columns = Address::create_columns();
     $model = 'address';
-    return view('layouts.data.create', compact('data', 'columns', 'model'));
+    return view('layouts.data.create', compact('data', 'columns', 'model','divisions'));
   }
-  public function store(AddressInputRequest $request, AddressInput $addressInput)
+  public function store(AddressInputRequest $request, StoreUpdateData $input)
   {
     $product = new Address();
-
-    $addressInput->storeUpdate($product, $request);
-
+    $input->addressStoreUpdate($product, $request);
     $request->user()->address()->save($product);
-
     return redirect('admin/view/address')
       ->withSuccess('Address Created Successfully');
   }
@@ -59,11 +58,11 @@ class AddressController extends Controller
     $model = 'address';
     return view('layouts.data.edit', compact('data', 'columns', 'model'));
   }
-  public function update(AddressUpdateRequest $request,AddressInput $addressInput, $slug)
+  public function update(AddressUpdateRequest $request, StoreUpdateData $input, $slug)
   {
     $product = Address::where('slug', $slug)
       ->firstOrFail();
-    $addressInput->storeUpdate($product, $request);
+      $input->addressStoreUpdate($product, $request);
     $product->update();
     return back()->withSuccess('Address Updated Successfully');;
   }

@@ -24,10 +24,14 @@
                         <input type="checkbox" id="selectallboxes">
                     </th>
                     @foreach($columns as $column)
-                    <th>{{ ucfirst($column) }}</th>
+                    <th>{{ucfirst(str_replace('_',' ',$column))}}</th>
                     @endforeach
-                    <th {{$model=='product'?'':'hidden'}}>Category</th>
-                    <th {{$model=='product'?'':'hidden'}}>Size</th>
+
+                    @if($model=='product')
+                    <th>Category</th>
+                    <th>Size</th>
+                    @endif
+
                     <th>Action</th>
 
                 </tr>
@@ -46,29 +50,32 @@
                     </td>
                     @elseif($column=='user_id')
                     <td>{{$data->user_id}}</td>
+                    @elseif($column=='status')
+                    <td>
+                        <input type="checkbox" id="toggle-demo" class="ArtStatus btn btn-success btn-sm" rel="1" data-toggle="toggle" data-on="Enabled" data-of="Disabled" data-onstyle="success" data-offstyle="danger" checked>
+                        <div id="myElem" style="display:none;" class="alert alert-success">Status Enabled</div>
+                    </td>
                     @else
                     <td>{{$data->$column}}</td>
                     @endif
                     @endforeach
-                    <td {{$model=='product'?'':'hidden'}}>
-                        @if($model=='product')
+
+                    @if($model=='product')
+                    <td>
                         @forelse($data->categories as $category)
                         {{$category->name}} ,<br>
                         @empty
                         No Category
                         @endforelse
-                        @endif
                     </td>
-                    <td {{$model=='product'?'':'hidden'}}>
-                        @if($model=='product')
+                    <td>
                         @forelse($data->sizes as $size)
                         {{$size->size}} ,
                         @empty
                         No Size
                         @endforelse
-                        @endif
                     </td>
-
+                    @endif
 
                     <td>
                         <a href="{{url('admin/edit/'.$model,$data->slug)}}" style="color:blue"><i class="fas fa-pencil-alt"></i></a>
@@ -82,16 +89,17 @@
         </table>
         <nav aria-label="..." class="pagintion_nav {{$datas->lastPage()==1?'pagination_display':''}}">
             <ul class="pagination">
-                <li class="page-item paginate_reload_prevent">
+                <li class="page-item paginate_reload_prevent {{$datas->currentPage()=='1'?'disabled':''}}">
                     @php
                     $previous=$datas->currentPage()-1;
                     $next=$datas->currentPage()+1;
                     @endphp
-                    @if($datas->currentPage()=='1')
+                    <!-- @if($datas->currentPage()=='1')
                     <span class="page-link">Previous</span>
-                    @else
+                    @else -->
+                    <!-- @endif -->
+
                     <a class="page-link" data-id="{{$datas->currentPage()-1}}" href="{{URL::to('/admin/view/'.$model.'?page='.$previous)}}">Previous</a>
-                    @endif
                 </li>
                 @for($i=1;$i<=$datas->lastPage();$i++)
                     <li class="page-item paginate_reload_prevent {{ $datas->currentPage()==$i ? 'active' : '' }}">
@@ -102,12 +110,13 @@
                 <span class="page-link">2</span>
             </li>
             <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-                    <li class="page-item paginate_reload_prevent">
-                        @if($datas->currentPage()==$datas->lastPage())
+                    <li class="page-item paginate_reload_prevent {{$datas->currentPage()==$datas->lastPage()?'disabled':''}}">
+                        <!-- @if($datas->currentPage()==$datas->lastPage())
                         <span class="page-link">Next</span>
-                        @else
+                        @else -->
+                        <!-- @endif -->
+
                         <a class="page-link" data-id="{{$datas->currentPage()+1}}" href="{{URL::to('/admin/view/'.$model.'?page='.$next)}}">Next</a>
-                        @endif
                     </li>
             </ul>
         </nav>

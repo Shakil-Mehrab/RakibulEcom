@@ -16,8 +16,9 @@ class CreateAddressesTable extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
-            $table->string('slug')->index();
+            $table->string('slug')->unique()->index();
             $table->integer('country_id')->unsigned()->index();
+            $table->integer('division_id')->unsigned()->index();
             $table->integer('district_id')->unsigned()->index();
             $table->integer('place_id')->unsigned()->index();
             $table->string('address');
@@ -25,10 +26,6 @@ class CreateAddressesTable extends Migration
             $table->boolean('default')->default(0);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('country_id')->references('id')->on('countries');
-            $table->foreign('district_id')->references('id')->on('districts');
-            $table->foreign('place_id')->references('id')->on('places');
-        
         });
     }
 

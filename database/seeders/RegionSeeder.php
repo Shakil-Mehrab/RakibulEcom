@@ -32,7 +32,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Barguna",
                                     "name" => "বরগুনা",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Amtali",
@@ -63,7 +63,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Barishal",
                                     "name" => "বরিশাল",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Muladi",
@@ -110,7 +110,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Bhola",
                                     "name" => "ভোলা",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Bhola Sadar",
@@ -145,7 +145,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Jhalokati",
                                     "name" => "ঝালকাঠি",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Jhalokati Sadar",
@@ -168,7 +168,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Patuakhali",
                                     "name" => "পটুয়াখালী",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Bauphal",
@@ -207,7 +207,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Pirojpur",
                                     "name" => "পিরোজপুর",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Bhandaria",
@@ -250,7 +250,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Bandarban",
                                     "name" => "বান্দরবান",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Bandarban Sadar",
@@ -285,7 +285,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Brahmanbaria",
                                     "name" => "ব্রাহ্মণবাড়িয়া",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Brahmanbaria Sadar",
@@ -332,7 +332,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Chandpur",
                                     "name" => "চাঁদপুর",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Chandpur Sadar",
@@ -371,7 +371,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Chattogram",
                                     "name" => "চট্টগ্রাম",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Anwara",
@@ -434,7 +434,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Cumilla",
                                     "name" => "কুমিল্লা",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Barura",
@@ -505,7 +505,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Cox's Bazar",
                                     "name" => "কক্স বাজার",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Chakaria",
@@ -544,7 +544,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Feni",
                                     "name" => "ফেনী",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Feni Sadar",
@@ -575,7 +575,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Khagrachhari",
                                     "name" => "খাগড়াছড়ি",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Dighinala",
@@ -614,7 +614,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Lakshmipur",
                                     "name" => "লক্ষ্মীপুর",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Lakshmipur Sadar",
@@ -641,7 +641,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Noakhali",
                                     "name" => "নোয়াখালী",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Noakhali Sadar",
@@ -684,7 +684,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Rangamati",
                                     "name" => "রাঙ্গামাটি",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Rangamati Sadar",
@@ -739,7 +739,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Dhaka",
                                     "name" => "ঢাকা",
-                                    "value"=>"50",
+                                    "value" => "50",
                                     "children" => [
                                         [
                                             "slug" => "Dhamrai",
@@ -766,7 +766,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Faridpur",
                                     "name" => "ফরিদপুর",
-                                    "value"=>"190",
+                                    "value" => "190",
                                     "children" => [
                                         [
                                             "slug" => "Faridpur Sadar",
@@ -809,7 +809,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Gazipur",
                                     "name" => "গাজীপুর",
-                                    "value"=>"90",
+                                    "value" => "90",
                                     "children" => [
                                         [
                                             "slug" => "Gazipur Sadar-Joydebpur",
@@ -840,7 +840,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Gopalganj",
                                     "name" => "গোপালগঞ্জ",
-                                    "value"=>"190",
+                                    "value" => "190",
                                     "children" => [
                                         [
                                             "slug" => "Gopalganj Sadar",
@@ -867,7 +867,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Kishoreganj",
                                     "name" => "কিশোরগঞ্জ",
-                                    "value"=>"120",
+                                    "value" => "120",
                                     "children" => [
                                         [
                                             "slug" => "Astagram",
@@ -926,7 +926,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Madaripur",
                                     "name" => "মাদারীপুর",
-                                    "value"=>"190",
+                                    "value" => "190",
                                     "children" => [
                                         [
                                             "slug" => "Madaripur Sadar",
@@ -949,7 +949,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Manikganj",
                                     "name" => "মানিকগঞ্জ",
-                                    "value"=>"120",
+                                    "value" => "120",
                                     "children" => [
                                         [
                                             "slug" => "Manikganj Sadar",
@@ -984,7 +984,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Munshiganj",
                                     "name" => "মুন্সিগঞ্জ",
-                                    "value"=>"120",
+                                    "value" => "120",
                                     "children" => [
                                         [
                                             "slug" => "Lohajang",
@@ -1015,7 +1015,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Narayanganj",
                                     "name" => "নারায়াণগঞ্জ",
-                                    "value"=>"90",
+                                    "value" => "90",
                                     "children" => [
                                         [
                                             "slug" => "Araihazar",
@@ -1046,7 +1046,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Narsingdi",
                                     "name" => "নরসিংদী",
-                                    "value"=>"120",
+                                    "value" => "120",
                                     "children" => [
                                         [
                                             "slug" => "Belabo",
@@ -1077,7 +1077,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Rajbari",
                                     "name" => "রাজবাড়ি",
-                                    "value"=>"190",
+                                    "value" => "190",
                                     "children" => [
                                         [
                                             "slug" => "Baliakandi",
@@ -1104,7 +1104,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Shariatpur",
                                     "name" => "শরীয়তপুর",
-                                    "value"=>"190",
+                                    "value" => "190",
                                     "children" => [
                                         [
                                             "slug" => "Shariatpur Sadar -Palong",
@@ -1135,7 +1135,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Tangail",
                                     "name" => "টাঙ্গাইল",
-                                    "value"=>"120",
+                                    "value" => "120",
                                     "children" => [
                                         [
                                             "slug" => "Tangail Sadar",
@@ -1198,7 +1198,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Bagerhat",
                                     "name" => "বাগেরহাট",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Bagerhat Sadar",
@@ -1241,7 +1241,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Chuadanga",
                                     "name" => "চুয়াডাঙ্গা",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Damurhuda",
@@ -1264,7 +1264,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Jashore",
                                     "name" => "যশোর",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Abhaynagar",
@@ -1303,7 +1303,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Jhenaidah",
                                     "name" => "ঝিনাইদহ",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Jhenaidah Sadar",
@@ -1334,7 +1334,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Khulna",
                                     "name" => "খুলনা",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Terokhada",
@@ -1377,7 +1377,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Kushtia",
                                     "name" => "কুষ্টিয়া",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Kushtia Sadar",
@@ -1408,7 +1408,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Magura",
                                     "name" => "মাগুরা",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Magura Sadar",
@@ -1431,7 +1431,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Meherpur",
                                     "name" => "মেহেরপুর",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "angni",
@@ -1450,7 +1450,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Narail",
                                     "name" => "নড়াইল",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Narail-S Upazilla",
@@ -1469,7 +1469,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Satkhira",
                                     "name" => "সাতক্ষীরা",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Satkhira Sadar",
@@ -1512,7 +1512,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Bogura",
                                     "name" => "বগুড়া",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Adamdighi",
@@ -1567,7 +1567,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Joypurhat",
                                     "name" => "জয়পুরহাট",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Joypurhat S",
@@ -1594,7 +1594,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Naogaon",
                                     "name" => "নওগাঁ",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Naogaon Sadar",
@@ -1645,7 +1645,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Natore",
                                     "name" => "নাটোর",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Natore Sadar",
@@ -1676,7 +1676,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Chapainawabganj",
                                     "name" => "চাঁপাইনবাবগঞ্জ",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Bholahat",
@@ -1703,7 +1703,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Pabna",
                                     "name" => "পাবনা",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Atgharia",
@@ -1746,7 +1746,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Rajshahi",
                                     "name" => "রাজশাহী",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Bagha",
@@ -1789,7 +1789,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Sirajgonj",
                                     "name" => "সিরাজগঞ্জ",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Sirajganj Sadar",
@@ -1840,7 +1840,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Dinajpur",
                                     "name" => "দিনাজপুর",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Birampur",
@@ -1899,7 +1899,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Gaibandha",
                                     "name" => "গাইবান্ধা",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Fulchhari",
@@ -1934,7 +1934,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Kurigram",
                                     "name" => "কুড়িগ্রাম",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Kurigram Sadar",
@@ -1977,7 +1977,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Lalmonirhat",
                                     "name" => "লালমনিরহাট",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Lalmanirhat Sadar",
@@ -2004,7 +2004,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Nilphamari",
                                     "name" => "নীলফামারী",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Nilphamari Sadar",
@@ -2035,7 +2035,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Panchagarh",
                                     "name" => "পঞ্চগড়",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Panchagarh Sadar",
@@ -2062,7 +2062,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Rangpur",
                                     "name" => "রংপুর",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Badarganj",
@@ -2101,7 +2101,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Thakurgaon",
                                     "name" => "ঠাকুরগাঁও",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Thakurgaon Sadar",
@@ -2136,7 +2136,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Habiganj",
                                     "name" => "হবিগঞ্জ",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Ajmiriganj",
@@ -2179,7 +2179,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Moulvibazar",
                                     "name" => "মৌলভীবাজার",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Moulvibazar Sadar",
@@ -2214,7 +2214,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Sunamganj",
                                     "name" => "সুনামগঞ্জ",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Bishwamvarpur",
@@ -2265,7 +2265,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Sylhet",
                                     "name" => "সিলেট",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Sylhet Sadar",
@@ -2332,7 +2332,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Jamalpur",
                                     "name" => "জামালপুর",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Dewanganj",
@@ -2371,7 +2371,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Mymensingh",
                                     "name" => "ময়মনসিংহ",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Bhaluka",
@@ -2426,7 +2426,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Netrokona",
                                     "name" => "নেত্রকোণা",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Kendua Upazilla",
@@ -2473,7 +2473,7 @@ class RegionSeeder extends Seeder
                                 [
                                     "slug" => "Sherpur",
                                     "name" => "শেরপুর",
-                                    "value"=>"220",
+                                    "value" => "220",
                                     "children" => [
                                         [
                                             "slug" => "Jhenaigati",
@@ -2505,23 +2505,17 @@ class RegionSeeder extends Seeder
                 [
                     'name' => 'ভারত',
                     'slug' => 'India',
-                    "children" =>[
-
-                    ]
+                    "children" => []
                 ],
                 [
                     'name' => 'পাকিস্তান',
                     'slug' => 'Pakistan',
-                    "children" =>[
-
-                    ]
+                    "children" => []
                 ],
                 [
                     'name' => 'চীন',
                     'slug' => 'China',
-                    "children" =>[
-
-                    ]
+                    "children" => []
                 ],
             ]
         ];
@@ -2541,22 +2535,25 @@ class RegionSeeder extends Seeder
         //             ],
         //         ]
         // ];
-        $division_id=6;
-        $district_id=78;
+        $division_id = 6;
+        $district_id = 14;
         Region::create([
-            'name' => $asia['name']
+            'name' => $asia['slug'],
+            'slug' => $asia['slug']
         ]);
         foreach ($asia['children'] as $country) {
             Region::create([
-                'name' => $country['name'],
-                'parent_id'=>1
+                'name' => $country['slug'],
+                'slug' => $country['slug'],
+                'parent_id' => 1
             ]);
         }
         foreach ($asia['children'] as $country) {
             foreach ($country['children'] as $division) {
                 Region::create([
-                    'name' => $division['name'],
-                    'parent_id'=>2
+                    'name' => $division['slug'],
+                    'slug' => $division['slug'],
+                    'parent_id' => 2
                 ]);
             }
         }
@@ -2564,12 +2561,13 @@ class RegionSeeder extends Seeder
             foreach ($country['children'] as $division) {
                 foreach ($division['children'] as $district) {
                     Region::create([
-                        'name' => $district['name'],
+                        'name' => $district['slug'],
+                        'slug' => $district['slug'],
                         'expense' => $district['value'],
-                        'parent_id'=>$division_id
+                        'parent_id' => $division_id
                     ]);
                 }
-                $division_id=$division_id+1;
+                $division_id = $division_id + 1;
             }
         }
         foreach ($asia['children'] as $country) {
@@ -2577,11 +2575,12 @@ class RegionSeeder extends Seeder
                 foreach ($division['children'] as $district) {
                     foreach ($district['children'] as $upazilla) {
                         Region::create([
-                            'name' => $upazilla['name'],
-                            'parent_id'=>$district_id
+                            'name' => $upazilla['slug'],
+                            'slug' => $upazilla['slug'],
+                            'parent_id' => $district_id
                         ]);
                     }
-                    $district_id=$district_id+1;
+                    $district_id = $district_id + 1;
                 }
             }
         }

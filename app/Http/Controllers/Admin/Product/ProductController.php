@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin\Product;
 
+use App\Models\Stock;
 use App\Models\Product;
-use App\Bag\ImageHandling;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Bag\Delete\DeleteData;
-use App\Bag\Product\ProductInput;
+use App\Models\ProductVariation;
+use App\Bag\Admin\Delete\DeleteData;
 use App\Http\Controllers\Controller;
+use App\Bag\Admin\Image\ImageHandling;
+use App\Bag\Admin\StoreUpdate\StoreUpdateData;
 use App\Http\Requests\Product\ProductInputRequest;
 use App\Http\Requests\Product\ProductUpdateRequest;
 
@@ -18,11 +20,10 @@ class ProductController extends Controller
   {
     $datas = Product::orderBy('id', 'desc')
       ->pagination(request('per-page'));
-      // return $datas;
     $model = 'product';
     $columns = Product::columns();
 
-    if (request('per-page', '') or request('page', '')) {
+    if (request('per-page') or request('page')) {
       return view('layouts.data.table', compact('datas', 'columns', 'model'))->render();
     }
     return view('layouts.data.view', compact('datas', 'columns', 'model'));
@@ -43,18 +44,25 @@ class ProductController extends Controller
     $model = 'product';
     return view('layouts.data.create', compact('data', 'columns', 'model'));
   }
-  public function store(ProductInputRequest $request, ImageHandling $imageHandling, ProductInput $productInput)
+  public function store(ProductInputRequest $request, ImageHandling $imageHandling, StoreUpdateData $input)
   {
     $product = new Product();
 
-    $productInput->storeUpdate($product, $request);
+    $input->productStoreUpdate($product, $request);
     $product->slug = time() . '-' . Str::slug($request['name']);
     $imageHandling->uploadImage($product, $request,'product');
 
     $request->user()->products()->save($product);
 
     $imageHandling->uploadRelatedImage($product, $request);
-    $productInput->productPivotData($product, $request);
+    $input->productPivotData($product, $request);
+    $variation=$input->productVariation($product);
+    $input->productStock($variation);
+
+
+    
+
+
 
     return redirect('admin/view/product')
       ->withSuccess('Product Created Successfully');
@@ -66,16 +74,16 @@ class ProductController extends Controller
     $model = 'product';
     return view('layouts.data.edit', compact('data', 'columns', 'model'));
   }
-  public function update(ProductUpdateRequest $request, ImageHandling $imageHandling, ProductInput $productInput, $slug)
+  public function update(ProductUpdateRequest $request, ImageHandling $imageHandling, StoreUpdateData $input, $slug)
   {
     // dd($request['image']);
     $product = Product::where('slug', $slug)
       ->firstOrFail();
 
-    $productInput->storeUpdate($product, $request);
+    $input->productStoreUpdate($product, $request);
     $imageHandling->uploadImage($product, $request,'product');
     $imageHandling->uploadRelatedImage($product, $request);
-    $productInput->productPivotData($product, $request);
+    $input->productPivotData($product, $request);
 
     $product->update();
 

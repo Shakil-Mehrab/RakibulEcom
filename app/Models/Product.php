@@ -19,9 +19,9 @@ class Product extends Model
         return 'slug';
     }
     public static function booted(){
-        static::creating(function(Product $product){
-            $product->uuid=Str::uuid();
-            $product->status = ProductStatus::PENDING;
+        static::creating(function(Model $model){
+            $model->uuid=Str::uuid();
+            $model->status = ProductStatus::PENDING;
         });
     }
     

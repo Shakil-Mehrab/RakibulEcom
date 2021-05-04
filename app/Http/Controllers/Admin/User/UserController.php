@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Models\User;
-use App\Bag\ImageHandling;
 use Illuminate\Http\Request;
-use App\Bag\Delete\DeleteData;
+use App\Bag\Admin\Delete\DeleteData;
 use App\Http\Controllers\Controller;
+use App\Bag\Admin\Image\ImageHandling;
 use App\Http\Requests\User\UserUpdateRequest;
 
 class UserController extends Controller

@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin\Category;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Bag\Delete\DeleteData;
-use App\Bag\Category\CategoryInput;
+use App\Bag\Admin\Delete\DeleteData;
 use App\Http\Controllers\Controller;
+use App\Bag\Admin\StoreUpdate\StoreUpdateData;
 use App\Http\Requests\Category\CategoryInputRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
 
@@ -39,10 +39,10 @@ class CategoryController extends Controller
     $model = 'category';
     return view('layouts.data.create', compact('data', 'columns', 'model'));
   }
-  public function store(CategoryInputRequest $request, CategoryInput $categoryInput)
+  public function store(CategoryInputRequest $request, StoreUpdateData $input)
   {
     $product = new Category();
-    $categoryInput->storeUpdate($product, $request);
+    $input->categoryStoreUpdate($product, $request);
     $product->slug =  time() . '-' . Str::slug($request['name']);
     $request->user()->categories()->save($product);
     return redirect('admin/view/category')->withSuccess('Category Created Successfully');
@@ -54,11 +54,11 @@ class CategoryController extends Controller
     $model = 'category';
     return view('layouts.data.edit', compact('data', 'columns', 'model'));
   }
-  public function update(CategoryUpdateRequest $request, CategoryInput $categoryInput, $slug)
+  public function update(CategoryUpdateRequest $request, StoreUpdateData $input, $slug)
   {
     $product = Category::where('slug', $slug)
       ->firstOrFail();
-    $categoryInput->storeUpdate($product, $request);
+    $input->categoryStoreUpdate($product, $request);
     $product->update();
     return back()->withSuccess('Category Updated Successfully');;
   }

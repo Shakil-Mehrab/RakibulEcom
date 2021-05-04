@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
+use App\Models\ProductVariation;
 use App\Models\Traits\PaginationTrait;
 use App\Models\Traits\User\UserColumn;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,PaginationTrait,UserColumn;
+    use HasFactory, Notifiable, PaginationTrait, UserColumn;
 
     /**
      * The attributes that are mass assignable.
@@ -48,24 +49,38 @@ class User extends Authenticatable
     {
         return 'slug';
     }
-    public static function booted(){
-        static::creating(function(User $user){
-            $user->uuid=Str::uuid();
-            $user->slug =Str::uuid();
+    public static function booted()
+    {
+        static::creating(function (Model $model) {
+            $model->uuid = Str::uuid();
+            $model->slug = Str::uuid();
         });
     }
-    public function scopePagination($query,$per_page)
+    public function scopePagination($query, $per_page)
     {
-        return $query->paginate(request('per-page',10));
+        return $query->paginate(request('per-page', 10));
     }
-    public function products(){
-       return $this->hasMany('App\Models\Product');
+    public function products()
+    {
+        return $this->hasMany('App\Models\Product');
     }
 
-    public function categories(){
+    public function categories()
+    {
         return $this->hasMany('App\Models\Category');
-     }
-     public function address(){
+    }
+    public function address()
+    {
         return $this->hasMany('App\Models\Address');
-     }
+    }
+    public function orders()
+    {
+        return $this->hasMany('App\Models\Order');
+    }
+    public function cart()
+    {
+        return $this->belongsToMany(ProductVariation::class, 'cart_user') //first table related and 2nd tabl jar dara ai relation hoiche
+            ->withPivot('quantity') //cart user theke quantity
+            ->withTimestamps();
+    }
 }

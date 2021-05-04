@@ -24,10 +24,11 @@ class AddressUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'country_id'=>'required|numeric',
             'district_id'=>'required|numeric',
             'place_id'=>'required|numeric',
+            'division_id'=>'required|numeric',
             'postal_code'=>'required|numeric',
+            'address'=>'required',
         ];
     }
 }

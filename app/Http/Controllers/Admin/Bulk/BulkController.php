@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin\Bulk;
 
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Region;
 use App\Models\Address;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
-use App\Bag\Delete\DeleteData;
+use App\Bag\Admin\Delete\DeleteData;
 use App\Http\Controllers\Controller;
 
 class BulkController extends Controller
@@ -54,6 +55,14 @@ class BulkController extends Controller
                 $datas = Address::orderBy('id', 'desc')
                     ->pagination(request('per-page'));
                 $columns = Address::columns();
+            }
+            elseif ($request['model'] == 'order') {
+                foreach ($request['checked_slug'] as $slug) {
+                    $delete->orderDelete($slug);
+                }
+                $datas = Order::orderBy('id', 'desc')
+                    ->pagination(request('per-page'));
+                $columns = Order::columns();
             }
             elseif ($request['model'] == 'user') {
                 foreach ($request['checked_slug'] as $slug) {

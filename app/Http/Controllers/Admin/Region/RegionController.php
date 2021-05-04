@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Region;
 use App\Models\Region;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Bag\Delete\DeleteData;
+use App\Bag\Admin\Delete\DeleteData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Region\RegionInputRequest;
 use App\Http\Requests\Region\RegionUpdateRequest;

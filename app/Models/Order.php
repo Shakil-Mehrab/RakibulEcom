@@ -16,8 +16,8 @@ class Order extends Model
         return 'slug';
     }
     public static function booted(){
-        static::creating(function(Address $category){
-            $category->slug=Str::uuid();
+        static::creating(function(Model $model){
+            $model->slug=Str::uuid();
         });
     }
     public function user(){

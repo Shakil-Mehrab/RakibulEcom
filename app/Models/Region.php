@@ -30,11 +30,11 @@ class Region extends Model
     {
         static::creating(function (Model $model) {
             $model->uuid = Str::uuid();
-            $model->slug=Str::uuid();
-            $model->eng_name = $model->slug;
-
-            $prefix = $model->parent ? $model->parent->slug . ' ' : '';
-            $model->slug = Str::slug($prefix . $model->slug);
+//             $model->slug=Str::uuid();
+//             $model->eng_name = $model->slug;
+// 
+//             $prefix = $model->parent ? $model->parent->slug . ' ' : '';
+//             $model->slug = Str::slug($prefix . $model->slug);
         });
     }
    

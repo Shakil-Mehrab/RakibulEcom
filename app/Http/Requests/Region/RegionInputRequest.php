@@ -25,7 +25,7 @@ class RegionInputRequest extends FormRequest
     {
         return [
             'name'=>'required|max:255',
-            'expense'=>'numeric',
+            'expense'=>'required|numeric',
         ];
     }
 }

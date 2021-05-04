@@ -20,7 +20,7 @@ trait AddressColumn
     {
         return collect(Schema::getColumnListing(Address::getQuery()->from))
             ->reject(function ($column) {
-                return in_array($column,['id','uuid','user_id','slug','order','default','created_at','updated_at','deleted_at']);
+                return in_array($column,['id','uuid','user_id','slug','country_id','division_id','district_id','place_id','order','default','created_at','updated_at','deleted_at']);
 
             })
             ->toArray();
@@ -29,7 +29,7 @@ trait AddressColumn
     {
         return collect(Schema::getColumnListing(Address::getQuery()->from))
             ->reject(function ($column) {
-                return in_array($column,['id','uuid','user_id','slug','order','default','created_at','updated_at','deleted_at']);
+                return in_array($column,['id','uuid','user_id','slug','country_id','division_id','district_id','place_id','order','default','created_at','updated_at','deleted_at']);
 
             })
             ->toArray();

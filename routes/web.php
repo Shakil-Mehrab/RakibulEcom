@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-  return view('welcome');
-});
+Route::get('/',[App\Http\Controllers\Api\Product\ProductController::class, 'view']);
+Route::get('/product/show/{id}',[App\Http\Controllers\Api\Product\ProductController::class, 'show']);
+
+Route::resource('/cart','App\Http\Controllers\Api\Cart\CartController',[
+  'parameters'=>[
+      'cart'=>'productVariation'
+  ]
+]);
+
+Route::get('/product/variation',[App\Http\Controllers\Api\Cart\CartController::class, 'variation']);
+
+
 
 Auth::routes();
 
@@ -76,8 +86,18 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
    Route::get('/edit/order/{slug}', [App\Http\Controllers\Admin\Order\OrderController::class, 'edit']);
    Route::post('/update/order/{slug}', [App\Http\Controllers\Admin\Order\OrderController::class, 'update']);
    Route::get('/search/order', [App\Http\Controllers\Admin\Order\OrderController::class, 'search']);
- 
-
   // Bulk option 
   Route::post('/bulk/delete', [App\Http\Controllers\Admin\Bulk\BulkController::class, 'delete']);
+  //checkout
+  Route::get('/division', [App\Http\Controllers\Admin\Cascading\CascadingController::class, 'division']);
+  Route::get('/district', [App\Http\Controllers\Admin\Cascading\CascadingController::class, 'district']);
+   // shipping method 
+   Route::get('/view/shippingmethod', [App\Http\Controllers\Admin\ShippingMethod\ShippingMethodController::class, 'view']);
+   Route::get('/create/shippingmethod', [App\Http\Controllers\Admin\ShippingMethod\ShippingMethodController::class, 'create']);
+   Route::post('/store/shippingmethod', [App\Http\Controllers\Admin\ShippingMethod\ShippingMethodController::class, 'store']);
+   Route::get('/delete/shippingmethod/{slug}', [App\Http\Controllers\Admin\ShippingMethod\ShippingMethodController::class, 'delete']);
+   Route::get('/edit/shippingmethod/{slug}', [App\Http\Controllers\Admin\ShippingMethod\ShippingMethodController::class, 'edit']);
+   Route::post('/update/shippingmethod/{slug}', [App\Http\Controllers\Admin\ShippingMethod\ShippingMethodController::class, 'update']);
+   Route::get('/search/shippingmethod', [App\Http\Controllers\Admin\ShippingMethod\ShippingMethodController::class, 'search']);
 });
+
