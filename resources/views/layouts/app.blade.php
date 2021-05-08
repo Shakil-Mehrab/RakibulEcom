@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Hatirpal') }}</title>
+    <title>{{ 'Hatirpal'}}</title>
     <!-- Scripts -->
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -15,8 +15,8 @@
     <!-- Styles -->
     <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
     <script src="https://kit.fontawesome.com/bb2f33706c.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{{asset('css/backend/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/backend/nav_left_navigation.css')}}">
+    <link rel="stylesheet" href="{{asset('css/backend/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/backend/googletranslator.css')}}">
 
     @yield('css')
@@ -27,7 +27,7 @@
         @include('layouts.includes.nav')
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-2 col-md-3 col-sm-4 left_navigation" style="margin-top: 55px;">
+                <div class="col-lg-2 col-md-3 col-sm-4 left_navigation toggle_left_navigation" id="toggle_left_navigation">
                     @include('layouts.includes.leftNavigation')
                 </div>
                 <div class="col-lg-10 col-md-9 col-sm-8 main_content" style="margin-top: 55px;height:600px;overflow:scroll;">
@@ -72,6 +72,12 @@
             showConfirmButton: false,
             timer: 3000,
         });
+        $(function(){
+            $('.navbar-toggler').on('click',function(){
+                var click=document.getElementById('toggle_left_navigation');
+                click.classList.toggle("toggle_left_navigation");
+            })
+        })
         $(function() {
             $('#dataTable').on('change', '#per_page', function() {
                 var model = $(this).data('model');
@@ -108,6 +114,7 @@
                 }
             })
         });
+
         $(function() {
             $('#district_id').on('change', function() {
                 var id = $(this).val();
